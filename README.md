@@ -1,1 +1,1 @@
-# -AspNetCoreAzureAdAzureStorage
+# ASP.NET Core Azure Storage Secure Files
