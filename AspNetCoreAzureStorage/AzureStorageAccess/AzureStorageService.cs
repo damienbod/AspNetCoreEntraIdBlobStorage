@@ -1,9 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Azure.Storage.Blobs;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
 using Newtonsoft.Json.Linq;
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AspNetCoreAzureStorage
@@ -23,34 +26,37 @@ namespace AspNetCoreAzureStorage
             _configuration = configuration;
         }
 
-        public async Task<JArray> GetApiDataAsync()
+        [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
+        public async Task<string> AddNewFile()
         {
             try
             {
-                var client = _clientFactory.CreateClient();
-
+                
                 var scope = _configuration["AzureStorageApi:ScopeForAccessToken"];
-                var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { scope });
+                // var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { scope });
 
-                client.BaseAddress = new Uri(_configuration["AzureStorageApi:ApiBaseAddress"]);
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-       
-                var response = await client.GetAsync("weatherforecast");
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseContent = await response.Content.ReadAsStringAsync();
-                    var data = JArray.Parse(responseContent);
-
-                    return data;
-                }
-
-                throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
+                return await CreateBlob(new TokenAcquisitionTokenCredential(_tokenAcquisition));
             }
             catch (Exception e)
             {
                 throw new ApplicationException($"Exception {e}");
             }
+        }
+
+ 
+        private static async Task<string> CreateBlob(TokenAcquisitionTokenCredential tokenCredential)
+        {
+            Uri blobUri = new Uri("https://azureadfiles.blob.core.windows.net/sample-container/Blob1.txt");
+            BlobClient blobClient = new BlobClient(blobUri, tokenCredential);
+
+            string blobContents = "Blob created by Azure AD authenticated user.";
+            byte[] byteArray = Encoding.ASCII.GetBytes(blobContents);
+
+            using (MemoryStream stream = new MemoryStream(byteArray))
+            {
+                await blobClient.UploadAsync(stream);
+            }
+            return "Blob successfully created";
         }
     }
 }

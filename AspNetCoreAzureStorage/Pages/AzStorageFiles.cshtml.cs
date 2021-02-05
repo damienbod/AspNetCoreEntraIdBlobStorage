@@ -8,7 +8,7 @@ namespace AspNetCoreAzureStorage.Pages
     {
         private readonly AzureStorageService _azureStorageService;
 
-        public JArray DataFromApi { get; set; }
+        public string DataFromApi { get; set; }
         public AzStorageFilesModel(AzureStorageService azureStorageService)
         {
             _azureStorageService = azureStorageService;
@@ -16,7 +16,7 @@ namespace AspNetCoreAzureStorage.Pages
 
         public async Task OnGetAsync()
         {
-            DataFromApi = await _azureStorageService.GetApiDataAsync();
+            DataFromApi = await _azureStorageService.AddNewFile();
         }
     }
 }
