@@ -37,12 +37,13 @@ namespace AspNetCoreAzureStorage
             }
         }
 
-        private static async Task<string> PersistFileToAzureStorage(
+        private async Task<string> PersistFileToAzureStorage(
             TokenAcquisitionTokenCredential tokenCredential, 
             string fileName,  IFormFile formFile,
             CancellationToken cancellationToken = default)
         {
-            var fileFullName = $"https://azureadfiles.blob.core.windows.net/demo-aad-container/{fileName}";
+            var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
+            var fileFullName = $"{storage}{fileName}";
 
             Uri blobUri = new Uri(fileFullName);
             BlobClient blobClient = new BlobClient(blobUri, tokenCredential);
@@ -50,7 +51,7 @@ namespace AspNetCoreAzureStorage
             var inputStream = formFile.OpenReadStream();
             await blobClient.UploadAsync(inputStream, cancellationToken);
 
-            return "{fileName} successfully saved to Azure Storage";
+            return "{fileName} successfully saved to Azure Storage Container";
         }
     }
 }
