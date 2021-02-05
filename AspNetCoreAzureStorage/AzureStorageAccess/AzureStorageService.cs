@@ -1,8 +1,10 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -46,10 +48,19 @@ namespace AspNetCoreAzureStorage
             var fileFullName = $"{storage}{fileName}";
 
             Uri blobUri = new Uri(fileFullName);
+
+            BlobUploadOptions blobUploadOptions = new BlobUploadOptions
+            {
+                Metadata = new Dictionary<string, string>
+                {
+                    { "uploadedBy", "me" }
+                }
+            };
+
             BlobClient blobClient = new BlobClient(blobUri, tokenCredential);
 
             var inputStream = formFile.OpenReadStream();
-            await blobClient.UploadAsync(inputStream, cancellationToken);
+            await blobClient.UploadAsync(inputStream, blobUploadOptions, cancellationToken);
 
             return "{fileName} successfully saved to Azure Storage Container";
         }
