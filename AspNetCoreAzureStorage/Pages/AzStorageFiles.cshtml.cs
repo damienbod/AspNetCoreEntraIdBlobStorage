@@ -2,10 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
@@ -15,22 +13,20 @@ namespace AspNetCoreAzureStorage.Pages
     {
         private readonly AzureStorageService _azureStorageService;
 
-        public string DataFromApi { get; set; }
-
         [BindProperty]
         public FileDescriptionShort FileDescriptionShort { get; set; }
+
         public AzStorageFilesModel(AzureStorageService azureStorageService)
         {
             _azureStorageService = azureStorageService;
         }
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
             FileDescriptionShort = new FileDescriptionShort
             {
                 Description = "enter description"
             };
-            //DataFromApi = await _azureStorageService.AddNewFile();
         }
 
         //[ServiceFilter(typeof(ValidateMimeMultipartContentFilter))]

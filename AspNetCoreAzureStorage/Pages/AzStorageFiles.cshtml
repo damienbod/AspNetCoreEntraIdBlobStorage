@@ -5,14 +5,12 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<pre>@Model.DataFromApi</pre>
-
 <div class="card">
+    <div class="card-header">Uploaded Files</div>
     <div class="card-body">
         <form enctype="multipart/form-data" asp-page="/AzStorageFiles" id="ajaxUploadForm" novalidate="novalidate">
 
             <fieldset>
-                <legend style="padding-top: 10px; padding-bottom: 10px;">Uploaded Files</legend>
 
                 <div class="col-xs-12" style="padding: 10px;">
                     <div class="col-xs-4">
