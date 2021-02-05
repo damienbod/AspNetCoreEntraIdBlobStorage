@@ -1,12 +1,50 @@
 ﻿@page
 @model AspNetCoreAzureStorage.Pages.AzStorageFilesModel
 @{
-    ViewData["Title"] = "CallApi";
+    ViewData["Title"] = "Azure Storage Files";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Call API</h1>
-<h6>gets the data from the Azure AD protected Web API</h6>
-
 <pre>@Model.DataFromApi</pre>
 
+<form asp-page="/SearchAdmin" asp-page-handler="CreateIndex">
+    <button type="submit" class="btn btn-primary col-sm-6">
+        Create
+    </button>
+</form>
+
+<form enctype="multipart/form-data" asp-page="/AzStorageFiles" id="ajaxUploadForm" novalidate="novalidate">
+
+    <fieldset>
+        <legend style="padding-top: 10px; padding-bottom: 10px;">Uploaded Files</legend>
+
+        <div class="col-xs-12" style="padding: 10px;">
+            <div class="col-xs-4">
+                <label>Description</label>
+            </div>
+            <div class="col-xs-7">
+                <textarea rows="2" placeholder="Description" class="form-control" asp-for="FileDescriptionShort.Description"></textarea>
+            </div>
+        </div>
+
+        <div class="col-xs-12" style="padding: 10px;">
+            <div class="col-xs-4">
+                <label>Upload</label>
+            </div>
+            <div class="col-xs-7">
+                <input type="file"  asp-for="FileDescriptionShort.File" multiple>
+            </div>
+        </div>
+
+        <div class="col-xs-12" style="padding: 10px;">
+            <div class="col-xs-4">
+                <input type="submit" value="Upload" id="ajaxUploadButton" class="btn btn-primary">
+            </div>
+            <div class="col-xs-7">
+
+            </div>
+        </div>
+
+    </fieldset>
+
+</form>
