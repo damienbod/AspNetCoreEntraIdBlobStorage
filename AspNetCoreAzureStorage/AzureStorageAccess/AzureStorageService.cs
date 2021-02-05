@@ -1,41 +1,35 @@
 ﻿using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
-using Newtonsoft.Json.Linq;
 using System;
-using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AspNetCoreAzureStorage
 {
     public class AzureStorageService
     {
-        private readonly IHttpClientFactory _clientFactory;
         private readonly ITokenAcquisition _tokenAcquisition;
         private readonly IConfiguration _configuration;
 
-        public AzureStorageService(IHttpClientFactory clientFactory, 
-            ITokenAcquisition tokenAcquisition, 
+        public AzureStorageService(ITokenAcquisition tokenAcquisition, 
             IConfiguration configuration)
         {
-            _clientFactory = clientFactory;
             _tokenAcquisition = tokenAcquisition;
             _configuration = configuration;
         }
 
         [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
-        public async Task<string> AddNewFile()
+        public async Task<string> AddNewFile(string fileName, IFormFile file)
         {
             try
             {
-                
-                var scope = _configuration["AzureStorageApi:ScopeForAccessToken"];
+                // var scope = _configuration["AzureStorageApi:ScopeForAccessToken"];
                 // var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { scope });
 
-                return await CreateBlob(new TokenAcquisitionTokenCredential(_tokenAcquisition));
+                return await PersistFileToAzureStorage(new TokenAcquisitionTokenCredential(_tokenAcquisition),
+                    fileName, file);
             }
             catch (Exception e)
             {
@@ -43,20 +37,20 @@ namespace AspNetCoreAzureStorage
             }
         }
 
- 
-        private static async Task<string> CreateBlob(TokenAcquisitionTokenCredential tokenCredential)
+        private static async Task<string> PersistFileToAzureStorage(
+            TokenAcquisitionTokenCredential tokenCredential, 
+            string fileName,  IFormFile formFile,
+            CancellationToken cancellationToken = default)
         {
-            Uri blobUri = new Uri("https://azureadfiles.blob.core.windows.net/demo-aad-container/myFirstFile.txt");
+            var fileFullName = $"https://azureadfiles.blob.core.windows.net/demo-aad-container/{fileName}";
+
+            Uri blobUri = new Uri(fileFullName);
             BlobClient blobClient = new BlobClient(blobUri, tokenCredential);
 
-            string blobContents = "Blob created by Azure AD authenticated user.";
-            byte[] byteArray = Encoding.ASCII.GetBytes(blobContents);
+            var inputStream = formFile.OpenReadStream();
+            await blobClient.UploadAsync(inputStream, cancellationToken);
 
-            using (MemoryStream stream = new MemoryStream(byteArray))
-            {
-                await blobClient.UploadAsync(stream);
-            }
-            return "Blob successfully created";
+            return "{fileName} successfully saved to Azure Storage";
         }
     }
 }

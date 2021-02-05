@@ -32,7 +32,6 @@ namespace AspNetCoreAzureStorage.Pages
             //DataFromApi = await _azureStorageService.AddNewFile();
         }
 
-        //[HttpPost]
         //[ServiceFilter(typeof(ValidateMimeMultipartContentFilter))]
         public async Task<IActionResult> OnPostAsync()
         {
@@ -40,8 +39,6 @@ namespace AspNetCoreAzureStorage.Pages
             var contentTypes = new List<string>();
             if (ModelState.IsValid)
             {
-                // http://www.mikesdotnetting.com/article/288/asp-net-5-uploading-files-with-asp-net-mvc-6
-                // http://dotnetthoughts.net/file-upload-in-asp-net-5-and-mvc-6/
                 foreach (var file in FileDescriptionShort.File)
                 {
                     if (file.Length > 0)
@@ -51,6 +48,7 @@ namespace AspNetCoreAzureStorage.Pages
 
                         names.Add(fileName);
 
+                        await _azureStorageService.AddNewFile(fileName, file);
                         // await file.SaveAsAsync(Path.Combine(_optionsApplicationConfiguration.Value.ServerUploadFolder, fileName));
                     }
                 }
