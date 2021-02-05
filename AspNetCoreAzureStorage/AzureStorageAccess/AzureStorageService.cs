@@ -46,7 +46,7 @@ namespace AspNetCoreAzureStorage
  
         private static async Task<string> CreateBlob(TokenAcquisitionTokenCredential tokenCredential)
         {
-            Uri blobUri = new Uri("https://azureadfiles.blob.core.windows.net/sample-container/Blob1.txt");
+            Uri blobUri = new Uri("https://azureadfiles.blob.core.windows.net/demo-aad-container/myFirstFile.txt");
             BlobClient blobClient = new BlobClient(blobUri, tokenCredential);
 
             string blobContents = "Blob created by Azure AD authenticated user.";
