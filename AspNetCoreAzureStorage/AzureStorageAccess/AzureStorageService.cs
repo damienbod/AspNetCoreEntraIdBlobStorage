@@ -1,4 +1,5 @@
-﻿using Azure.Storage.Blobs;
+﻿using AspNetCoreAzureStorage.AzureStorageAccess;
+using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +24,7 @@ namespace AspNetCoreAzureStorage
         }
 
         [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
-        public async Task<string> AddNewFile(string fileName, IFormFile file)
+        public async Task<string> AddNewFile(BlobFileUpload blobFileUpload, IFormFile file)
         {
             try
             {
@@ -31,7 +32,7 @@ namespace AspNetCoreAzureStorage
                 // var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { scope });
 
                 return await PersistFileToAzureStorage(new TokenAcquisitionTokenCredential(_tokenAcquisition),
-                    fileName, file);
+                    blobFileUpload, file);
             }
             catch (Exception e)
             {
@@ -40,12 +41,13 @@ namespace AspNetCoreAzureStorage
         }
 
         private async Task<string> PersistFileToAzureStorage(
-            TokenAcquisitionTokenCredential tokenCredential, 
-            string fileName,  IFormFile formFile,
+            TokenAcquisitionTokenCredential tokenCredential,
+            BlobFileUpload blobFileUpload,  
+            IFormFile formFile,
             CancellationToken cancellationToken = default)
         {
             var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
-            var fileFullName = $"{storage}{fileName}";
+            var fileFullName = $"{storage}{blobFileUpload.Name}";
 
             Uri blobUri = new Uri(fileFullName);
 
@@ -53,7 +55,8 @@ namespace AspNetCoreAzureStorage
             {
                 Metadata = new Dictionary<string, string>
                 {
-                    { "uploadedBy", "me" }
+                    { "uploadedBy", blobFileUpload.UploadedBy },
+                    { "description", blobFileUpload.Description }
                 }
             };
 
@@ -62,7 +65,7 @@ namespace AspNetCoreAzureStorage
             var inputStream = formFile.OpenReadStream();
             await blobClient.UploadAsync(inputStream, blobUploadOptions, cancellationToken);
 
-            return "{fileName} successfully saved to Azure Storage Container";
+            return $"{blobFileUpload.Name} successfully saved to Azure Storage Container";
         }
     }
 }

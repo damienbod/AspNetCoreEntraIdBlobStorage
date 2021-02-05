@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AspNetCoreAzureStorage.AzureStorageAccess;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json.Linq;
@@ -48,8 +49,13 @@ namespace AspNetCoreAzureStorage.Pages
 
                         names.Add(fileName);
 
-                        await _azureStorageService.AddNewFile(fileName, file);
-                        // await file.SaveAsAsync(Path.Combine(_optionsApplicationConfiguration.Value.ServerUploadFolder, fileName));
+                        await _azureStorageService.AddNewFile(new BlobFileUpload
+                        {
+                            Name = fileName,
+                            Description = FileDescriptionShort.Description,
+                            UploadedBy = HttpContext.User.Identity.Name
+                        },
+                        file); 
                     }
                 }
             }
@@ -63,27 +69,10 @@ namespace AspNetCoreAzureStorage.Pages
                 UpdatedTimestamp = DateTime.UtcNow,
             };
 
-            // Add to Azure storage
+            // Add to Azure Table storage
 
             return Page();
         }
 
-    }
-
-    public class FileResult
-    {
-        public List<string> FileNames { get; set; }
-        public string Description { get; set; }
-        public DateTime CreatedTimestamp { get; set; }
-        public DateTime UpdatedTimestamp { get; set; }
-        public List<string> ContentTypes { get; set; }
-    }
-
-    public class FileDescriptionShort
-    {
-        public int Id { get; set; }
-        public string Description { get; set; }
-        public string Name { get; set; }
-        public ICollection<IFormFile> File { get; set; }
     }
 }
