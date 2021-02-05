@@ -29,10 +29,10 @@ namespace AspNetCoreAzureStorage
             {
                 var client = _clientFactory.CreateClient();
 
-                var scope = _configuration["UserApiOne:ScopeForAccessToken"];
+                var scope = _configuration["AzureStorageApi:ScopeForAccessToken"];
                 var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { scope });
 
-                client.BaseAddress = new Uri(_configuration["UserApiOne:ApiBaseAddress"]);
+                client.BaseAddress = new Uri(_configuration["AzureStorageApi:ApiBaseAddress"]);
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
        
