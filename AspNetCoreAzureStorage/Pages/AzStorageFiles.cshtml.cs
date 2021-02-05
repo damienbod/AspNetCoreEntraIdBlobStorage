@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreAzureStorage.Pages
 {
-    public class CallApiModel : PageModel
+    public class AzStorageFilesModel : PageModel
     {
         private readonly AzureStorageService _azureStorageService;
 
         public JArray DataFromApi { get; set; }
-        public CallApiModel(AzureStorageService azureStorageService)
+        public AzStorageFilesModel(AzureStorageService azureStorageService)
         {
             _azureStorageService = azureStorageService;
         }
