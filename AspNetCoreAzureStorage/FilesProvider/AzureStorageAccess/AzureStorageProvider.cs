@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
 {
-    public class AzureStorageService
+    public class AzureStorageProvider
     {
         private readonly ITokenAcquisition _tokenAcquisition;
         private readonly IConfiguration _configuration;
 
-        public AzureStorageService(ITokenAcquisition tokenAcquisition, 
+        public AzureStorageProvider(ITokenAcquisition tokenAcquisition, 
             IConfiguration configuration)
         {
             _tokenAcquisition = tokenAcquisition;
@@ -30,7 +30,8 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
                 // var scope = _configuration["AzureStorageApi:ScopeForAccessToken"];
                 // var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { scope });
 
-                return await PersistFileToAzureStorage(new TokenAcquisitionTokenCredential(_tokenAcquisition),
+                return await PersistFileToAzureStorage(
+                    new TokenAcquisitionTokenCredential(_tokenAcquisition, _configuration),
                     blobFileUpload, file);
             }
             catch (Exception e)

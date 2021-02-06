@@ -13,12 +13,12 @@ namespace AspNetCoreAzureStorage.Pages
 {
     public class AzStorageFilesModel : PageModel
     {
-        private readonly AzureStorageService _azureStorageService;
+        private readonly AzureStorageProvider _azureStorageService;
 
         [BindProperty]
         public FileDescriptionShort FileDescriptionShort { get; set; }
 
-        public AzStorageFilesModel(AzureStorageService azureStorageService)
+        public AzStorageFilesModel(AzureStorageProvider azureStorageService)
         {
             _azureStorageService = azureStorageService;
         }
