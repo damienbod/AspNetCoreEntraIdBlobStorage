@@ -33,8 +33,7 @@ namespace AspNetCoreAzureStorage.Pages
         //[ServiceFilter(typeof(ValidateMimeMultipartContentFilter))]
         public async Task<IActionResult> OnPostAsync()
         {
-            var names = new List<string>();
-            var contentTypes = new List<string>();
+            var fileInfos = new List<(string FileName, string ContentType)>();
             if (ModelState.IsValid)
             {
                 foreach (var file in FileDescriptionShort.File)
@@ -42,9 +41,8 @@ namespace AspNetCoreAzureStorage.Pages
                     if (file.Length > 0)
                     {
                         var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.ToString().Trim('"');
-                        contentTypes.Add(file.ContentType);
 
-                        names.Add(fileName);
+                        fileInfos.Add((fileName, file.ContentType));
 
                         await _azureStorageService.AddNewFile(new BlobFileUpload
                         {
@@ -59,8 +57,7 @@ namespace AspNetCoreAzureStorage.Pages
 
             var files = new UploadedFileResult
             {
-                FileNames = names,
-                ContentTypes = contentTypes,
+                FileInfos = fileInfos,
                 Description = FileDescriptionShort.Description,
                 CreatedTimestamp = DateTime.UtcNow,
                 UpdatedTimestamp = DateTime.UtcNow,

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AspNetCoreAzureStorage.FilesProvider.Models
+namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
 {
     public class FileDescription
     {
