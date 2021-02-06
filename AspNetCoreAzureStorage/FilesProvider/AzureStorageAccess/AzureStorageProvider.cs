@@ -27,8 +27,7 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
         {
             try
             {
-                return await PersistFileToAzureStorage(
-                    _tokenAcquisitionTokenCredential, blobFileUpload, file);
+                return await PersistFileToAzureStorage(blobFileUpload, file);
             }
             catch (Exception e)
             {
@@ -37,17 +36,15 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
         }
 
         private async Task<string> PersistFileToAzureStorage(
-            TokenAcquisitionTokenCredential tokenCredential,
             BlobFileUpload blobFileUpload,  
             IFormFile formFile,
             CancellationToken cancellationToken = default)
         {
             var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
             var fileFullName = $"{storage}{blobFileUpload.Name}";
+            var blobUri = new Uri(fileFullName);
 
-            Uri blobUri = new Uri(fileFullName);
-
-            BlobUploadOptions blobUploadOptions = new BlobUploadOptions
+            var blobUploadOptions = new BlobUploadOptions
             {
                 Metadata = new Dictionary<string, string>
                 {
@@ -56,7 +53,7 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
                 }
             };
 
-            BlobClient blobClient = new BlobClient(blobUri, tokenCredential);
+            var blobClient = new BlobClient(blobUri, _tokenAcquisitionTokenCredential);
 
             var inputStream = formFile.OpenReadStream();
             await blobClient.UploadAsync(inputStream, blobUploadOptions, cancellationToken);
