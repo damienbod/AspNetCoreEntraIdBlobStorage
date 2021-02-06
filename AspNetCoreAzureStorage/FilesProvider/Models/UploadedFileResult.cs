@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AspNetCoreAzureStorage.Pages
+namespace AspNetCoreAzureStorage.FilesProvider.Models
 {
-    public class FileResult
+    public class UploadedFileResult
     {
         public List<string> FileNames { get; set; }
         public string Description { get; set; }

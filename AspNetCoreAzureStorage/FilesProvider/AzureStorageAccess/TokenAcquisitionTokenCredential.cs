@@ -4,7 +4,7 @@ using Microsoft.Identity.Web;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AspNetCoreAzureStorage
+namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
 {
     public class TokenAcquisitionTokenCredential : TokenCredential
     {

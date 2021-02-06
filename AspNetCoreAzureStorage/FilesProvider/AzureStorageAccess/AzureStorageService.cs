@@ -1,5 +1,4 @@
-﻿using AspNetCoreAzureStorage.AzureStorageAccess;
-using Azure.Storage.Blobs;
+﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -9,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AspNetCoreAzureStorage
+namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
 {
     public class AzureStorageService
     {

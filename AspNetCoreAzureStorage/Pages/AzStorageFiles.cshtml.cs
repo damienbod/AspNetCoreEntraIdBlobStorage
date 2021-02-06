@@ -1,4 +1,5 @@
-﻿using AspNetCoreAzureStorage.AzureStorageAccess;
+﻿using AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess;
+using AspNetCoreAzureStorage.FilesProvider.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -56,7 +57,7 @@ namespace AspNetCoreAzureStorage.Pages
                 }
             }
 
-            var files = new FileResult
+            var files = new UploadedFileResult
             {
                 FileNames = names,
                 ContentTypes = contentTypes,
