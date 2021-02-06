@@ -19,7 +19,7 @@ namespace AspNetCoreAzureStorage.Pages
         [BindProperty]
         public FileDescriptionUpload FileDescriptionShort { get; set; }
 
-        public AzStorageFilesModel(AzureStorageProvider azureStorageService, 
+        public AzStorageFilesModel(AzureStorageProvider azureStorageService,
             FileDescriptionProvider fileDescriptionProvider)
         {
             _azureStorageService = azureStorageService;
