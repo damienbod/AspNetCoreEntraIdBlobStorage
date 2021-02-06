@@ -3,17 +3,25 @@
 @{
 }
 
-<h3>All files Uploaded</h3>
-
-@foreach (var doc in Model.FileDescriptions)
-{
-<div class="col-xs-12" style="padding: 10px;">
-    <div class="col-xs-4">
-        <a href="@doc.FullName">@doc.Name</a>
-    </div>
-    <span class="col-xs-5" name="Description" id="Description">  @doc.Description</span>
-    <span class="col-xs-2" name="UploadedBy" id="UploadedBy">  @doc.UploadedBy</span>
-
-</div>
-}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Uploaded by</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doc in Model.FileDescriptions)
+        {
+            <tr>
+                <th scope="row">@doc.Id</th>
+                <td>  <a href="@doc.FullName">@doc.Name</a></td>
+                <td>@doc.Description</td>
+                <td>@doc.UploadedBy</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
