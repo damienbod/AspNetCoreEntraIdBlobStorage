@@ -6,7 +6,7 @@ using AspNetCoreAzureStorage.FilesProvider.ViewModels;
 
 namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
 {
-    public class FileProvider
+    public class FileDescriptionProvider
     {
 
         private readonly FileContext _context;
@@ -14,7 +14,7 @@ namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
         private readonly ILogger _logger;
 
 
-        public FileProvider(FileContext context, ILoggerFactory loggerFactory)
+        public FileDescriptionProvider(FileContext context, ILoggerFactory loggerFactory)
         {
             _context = context;
             _logger = loggerFactory.CreateLogger("FileRepository");

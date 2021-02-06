@@ -1,8 +1,10 @@
 using AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess;
+using AspNetCoreAzureStorage.FilesProvider.SqlDataAccess;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,11 @@ namespace AspNetCoreAzureStorage
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<AzureStorageProvider>();
+            services.AddTransient<TokenAcquisitionTokenCredential>();
+            services.AddDbContext<FileContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<FileDescriptionProvider>();
+
             services.AddHttpClient();
 
             services.AddOptions();

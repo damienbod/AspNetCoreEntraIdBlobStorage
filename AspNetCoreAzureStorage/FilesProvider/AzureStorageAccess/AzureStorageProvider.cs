@@ -12,13 +12,13 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
 {
     public class AzureStorageProvider
     {
-        private readonly ITokenAcquisition _tokenAcquisition;
+        private readonly TokenAcquisitionTokenCredential _tokenAcquisitionTokenCredential;
         private readonly IConfiguration _configuration;
 
-        public AzureStorageProvider(ITokenAcquisition tokenAcquisition, 
+        public AzureStorageProvider(TokenAcquisitionTokenCredential tokenAcquisitionTokenCredential, 
             IConfiguration configuration)
         {
-            _tokenAcquisition = tokenAcquisition;
+            _tokenAcquisitionTokenCredential = tokenAcquisitionTokenCredential;
             _configuration = configuration;
         }
 
@@ -27,12 +27,8 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
         {
             try
             {
-                // var scope = _configuration["AzureStorageApi:ScopeForAccessToken"];
-                // var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { scope });
-
                 return await PersistFileToAzureStorage(
-                    new TokenAcquisitionTokenCredential(_tokenAcquisition, _configuration),
-                    blobFileUpload, file);
+                    _tokenAcquisitionTokenCredential, blobFileUpload, file);
             }
             catch (Exception e)
             {
