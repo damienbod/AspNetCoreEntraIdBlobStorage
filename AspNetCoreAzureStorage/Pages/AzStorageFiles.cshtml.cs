@@ -4,6 +4,7 @@ using AspNetCoreAzureStorage.FilesProvider.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Identity.Web;
 using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreAzureStorage.Pages
 {
+    [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
     public class AzStorageFilesModel : PageModel
     {
         private readonly AzureStorageProvider _azureStorageService;

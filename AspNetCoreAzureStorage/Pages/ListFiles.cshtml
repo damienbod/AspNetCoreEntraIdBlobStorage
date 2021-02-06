@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{handler?}"
 @model AspNetCoreAzureStorage.Pages.ListFilesModel
 @{
 }
@@ -17,7 +17,13 @@
         {
             <tr>
                 <th scope="row">@doc.Id</th>
-                <td>  <a href="@doc.FullName">@doc.Name</a></td>
+                <td>
+                    <form asp-page="/ListFiles" asp-page-handler="DownloadFile" method="get">
+
+                        <input type="hidden" asp-for="FileName" value="@doc.Name">
+                        <input class="btn btn-link" type="submit" value="@doc.Name">
+                    </form>
+                </td>
                 <td>@doc.Description</td>
                 <td>@doc.UploadedBy</td>
             </tr>

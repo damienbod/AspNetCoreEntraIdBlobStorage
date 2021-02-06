@@ -18,6 +18,9 @@ namespace AspNetCoreAzureStorage.Pages
         [BindProperty]
         public IEnumerable<FileDescriptionDto> FileDescriptions { get; set; }
 
+        [BindProperty]
+        public string FileName { get; set; }
+
         public ListFilesModel(AzureStorageProvider azureStorageService,
             FileDescriptionProvider fileDescriptionProvider)
         {
@@ -29,5 +32,13 @@ namespace AspNetCoreAzureStorage.Pages
         {
             FileDescriptions = _fileDescriptionProvider.GetAllFiles();
         }
+
+        public async Task<ActionResult> OnGetDownloadFile(string fileName)
+        {
+            var file = await _azureStorageService.DownloadFile(fileName);
+            //file.Value
+            return Page();
+        }
+        //
     }
 }
