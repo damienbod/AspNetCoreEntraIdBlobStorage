@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AspNetCoreAzureStorage.FilesProvider.Models;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
+using AspNetCoreAzureStorage.FilesProvider.ViewModels;
 
 namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
 {

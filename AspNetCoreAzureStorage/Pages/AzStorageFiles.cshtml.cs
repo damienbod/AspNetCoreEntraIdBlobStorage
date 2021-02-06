@@ -1,5 +1,6 @@
 ﻿using AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess;
-using AspNetCoreAzureStorage.FilesProvider.Models;
+using AspNetCoreAzureStorage.FilesProvider.SqlDataAccess;
+using AspNetCoreAzureStorage.FilesProvider.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

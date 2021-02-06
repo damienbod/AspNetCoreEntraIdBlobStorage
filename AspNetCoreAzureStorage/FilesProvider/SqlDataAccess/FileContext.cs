@@ -1,5 +1,4 @@
-﻿using AspNetCoreAzureStorage.FilesProvider.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
 {

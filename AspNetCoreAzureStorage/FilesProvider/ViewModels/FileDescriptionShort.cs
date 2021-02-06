@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
-namespace AspNetCoreAzureStorage.FilesProvider.Models
+namespace AspNetCoreAzureStorage.FilesProvider.ViewModels
 {
     public class FileDescriptionShort
     {
