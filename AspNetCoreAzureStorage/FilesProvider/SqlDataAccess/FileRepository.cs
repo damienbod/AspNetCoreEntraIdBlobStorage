@@ -25,8 +25,6 @@ namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
             List<string> filenames = new List<string>();
             for (int i = 0; i < fileResult.FileNames.Count(); i++)
             {
-
-
                 int index = fileResult.FileNames[i].LastIndexOf("\\");
                 var shortName = fileResult.FileNames[i].Substring(index + 1);
 
