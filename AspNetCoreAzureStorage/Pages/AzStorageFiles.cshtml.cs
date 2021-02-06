@@ -3,7 +3,6 @@ using AspNetCoreAzureStorage.FilesProvider.SqlDataAccess;
 using AspNetCoreAzureStorage.FilesProvider.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
@@ -15,13 +14,16 @@ namespace AspNetCoreAzureStorage.Pages
     public class AzStorageFilesModel : PageModel
     {
         private readonly AzureStorageProvider _azureStorageService;
+        private readonly FileDescriptionProvider _fileDescriptionProvider;
 
         [BindProperty]
         public FileDescriptionShort FileDescriptionShort { get; set; }
 
-        public AzStorageFilesModel(AzureStorageProvider azureStorageService)
+        public AzStorageFilesModel(AzureStorageProvider azureStorageService, 
+            FileDescriptionProvider fileDescriptionProvider)
         {
             _azureStorageService = azureStorageService;
+            _fileDescriptionProvider = fileDescriptionProvider;
         }
 
         public void OnGet()
@@ -70,7 +72,7 @@ namespace AspNetCoreAzureStorage.Pages
                 UpdatedTimestamp = DateTime.UtcNow,
             };
 
-            // Add to Azure Table storage
+            await _fileDescriptionProvider.AddFileDescriptionsAsync(files);
 
             return Page();
         }
