@@ -25,14 +25,16 @@ namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
             _configuration = configuration;
         }
 
-        public IEnumerable<FileDescriptionShort> GetAllFiles()
+        public IEnumerable<FileDescriptionDto> GetAllFiles()
         {
             var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
 
-            return _context.FileDescriptions.Select(t => new FileDescriptionShort
+            return _context.FileDescriptions.Select(t => new FileDescriptionDto
             {
                 Name = $"{storage}{t.FileName}",
+                FullName = $"{storage}{t.FileName}",
                 Id = t.Id,
+                //Uploadedby = t.Uploadedby,
                 Description = t.Description
             });
         }
@@ -51,6 +53,7 @@ namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
                     FileName = FileName,
                     ContentType = ContentType,
                     Description = uploadedFileResult.Description,
+                    UploadedBy = uploadedFileResult.UploadedBy,
                     CreatedTimestamp = uploadedFileResult.CreatedTimestamp,
                     UpdatedTimestamp = uploadedFileResult.UpdatedTimestamp
                 });

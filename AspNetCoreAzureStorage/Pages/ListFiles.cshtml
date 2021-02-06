@@ -2,3 +2,15 @@
 @model AspNetCoreAzureStorage.Pages.ListFilesModel
 @{
 }
+
+@foreach (var doc in Model.FileDescriptions)
+{
+    <div class="col-xs-12" style="padding: 10px;">
+        <div class="col-xs-4">
+            <a href="@doc.Name">@doc.Name</a>
+        </div>
+        <span class="col-xs-5" name="Description" id="Description">  @doc.Description</span>
+
+    </div>
+}
+

@@ -7,7 +7,7 @@ Assign RBAC for user with role **Storage Blob Data Contributor** and your rosour
 ## SQL
 
 Add-Migration "init" 
-
+Add-Migration "UploadedBy" 
 
 Update-Database 
 

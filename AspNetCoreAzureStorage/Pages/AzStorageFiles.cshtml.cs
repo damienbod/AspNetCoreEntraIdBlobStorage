@@ -17,7 +17,7 @@ namespace AspNetCoreAzureStorage.Pages
         private readonly FileDescriptionProvider _fileDescriptionProvider;
 
         [BindProperty]
-        public FileDescriptionShort FileDescriptionShort { get; set; }
+        public FileDescriptionUpload FileDescriptionShort { get; set; }
 
         public AzStorageFilesModel(AzureStorageProvider azureStorageService, 
             FileDescriptionProvider fileDescriptionProvider)
@@ -28,7 +28,7 @@ namespace AspNetCoreAzureStorage.Pages
 
         public void OnGet()
         {
-            FileDescriptionShort = new FileDescriptionShort
+            FileDescriptionShort = new FileDescriptionUpload
             {
                 Description = "enter description"
             };
@@ -68,6 +68,7 @@ namespace AspNetCoreAzureStorage.Pages
             {
                 FileInfos = fileInfos,
                 Description = FileDescriptionShort.Description,
+                UploadedBy = HttpContext.User.Identity.Name,
                 CreatedTimestamp = DateTime.UtcNow,
                 UpdatedTimestamp = DateTime.UtcNow,
             };
