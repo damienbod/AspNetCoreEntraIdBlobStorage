@@ -51,7 +51,7 @@ namespace AspNetCoreAzureStorage.Pages
                             Description = FileDescriptionShort.Description,
                             UploadedBy = HttpContext.User.Identity.Name
                         },
-                        file); 
+                        file);
                     }
                 }
             }

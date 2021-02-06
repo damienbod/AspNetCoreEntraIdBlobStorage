@@ -33,7 +33,7 @@ namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
 
         public async Task AddFileDescriptionsAsync(UploadedFileResult uploadedFileResult)
         {
-            foreach(var (FileName, ContentType) in uploadedFileResult.FileInfos)
+            foreach (var (FileName, ContentType) in uploadedFileResult.FileInfos)
             {
                 _context.FileDescriptions.Add(new FileDescription
                 {
@@ -42,7 +42,7 @@ namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
                     Description = uploadedFileResult.Description,
                     CreatedTimestamp = uploadedFileResult.CreatedTimestamp,
                     UpdatedTimestamp = uploadedFileResult.UpdatedTimestamp
-                });  
+                });
             }
 
             await _context.SaveChangesAsync();

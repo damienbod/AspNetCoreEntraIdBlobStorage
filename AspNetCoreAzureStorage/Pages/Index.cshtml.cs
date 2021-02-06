@@ -18,7 +18,7 @@ namespace AspNetCoreAzureStorage.Pages
         }
 
         public void OnGet()
-        { 
+        {
         }
     }
 }

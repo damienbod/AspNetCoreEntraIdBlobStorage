@@ -58,7 +58,7 @@ namespace AspNetCoreAzureStorage
             }
             else
             {
-                app.UseExceptionHandler("/Error"); 
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 

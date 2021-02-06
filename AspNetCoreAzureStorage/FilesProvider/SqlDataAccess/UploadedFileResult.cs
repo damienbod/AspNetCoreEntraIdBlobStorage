@@ -9,6 +9,6 @@ namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
         public string Description { get; set; }
         public DateTime CreatedTimestamp { get; set; }
         public DateTime UpdatedTimestamp { get; set; }
-       
+
     }
 }

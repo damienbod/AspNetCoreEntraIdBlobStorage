@@ -12,16 +12,11 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
         private ITokenAcquisition _tokenAcquisition;
         private readonly IConfiguration _configuration;
 
-        /// <summary>
-        /// Constructor from an ITokenAcquisition service.
-        /// </summary>
-        /// <param name="tokenAcquisition">Token acquisition.</param>
         public TokenAcquisitionTokenCredential(ITokenAcquisition tokenAcquisition,
             IConfiguration configuration)
         {
             _tokenAcquisition = tokenAcquisition;
             _configuration = configuration;
-            _tokenAcquisition = tokenAcquisition;
         }
 
         public override AccessToken GetToken(TokenRequestContext requestContext, CancellationToken cancellationToken)

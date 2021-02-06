@@ -15,7 +15,7 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
         private readonly TokenAcquisitionTokenCredential _tokenAcquisitionTokenCredential;
         private readonly IConfiguration _configuration;
 
-        public AzureStorageProvider(TokenAcquisitionTokenCredential tokenAcquisitionTokenCredential, 
+        public AzureStorageProvider(TokenAcquisitionTokenCredential tokenAcquisitionTokenCredential,
             IConfiguration configuration)
         {
             _tokenAcquisitionTokenCredential = tokenAcquisitionTokenCredential;
@@ -36,7 +36,7 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
         }
 
         private async Task<string> PersistFileToAzureStorage(
-            BlobFileUpload blobFileUpload,  
+            BlobFileUpload blobFileUpload,
             IFormFile formFile,
             CancellationToken cancellationToken = default)
         {
