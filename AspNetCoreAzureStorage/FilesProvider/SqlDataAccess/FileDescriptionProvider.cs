@@ -31,10 +31,10 @@ namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
 
             return _context.FileDescriptions.Select(t => new FileDescriptionDto
             {
-                Name = $"{storage}{t.FileName}",
+                Name = t.FileName,
                 FullName = $"{storage}{t.FileName}",
                 Id = t.Id,
-                //Uploadedby = t.Uploadedby,
+                UploadedBy = t.UploadedBy,
                 Description = t.Description
             });
         }

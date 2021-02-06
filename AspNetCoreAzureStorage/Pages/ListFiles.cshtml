@@ -3,14 +3,17 @@
 @{
 }
 
+<h3>All files Uploaded</h3>
+
 @foreach (var doc in Model.FileDescriptions)
 {
-    <div class="col-xs-12" style="padding: 10px;">
-        <div class="col-xs-4">
-            <a href="@doc.Name">@doc.Name</a>
-        </div>
-        <span class="col-xs-5" name="Description" id="Description">  @doc.Description</span>
-
+<div class="col-xs-12" style="padding: 10px;">
+    <div class="col-xs-4">
+        <a href="@doc.FullName">@doc.Name</a>
     </div>
+    <span class="col-xs-5" name="Description" id="Description">  @doc.Description</span>
+    <span class="col-xs-2" name="UploadedBy" id="UploadedBy">  @doc.UploadedBy</span>
+
+</div>
 }
 
