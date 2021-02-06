@@ -3,6 +3,7 @@ using AspNetCoreAzureStorage.FilesProvider.SqlDataAccess;
 using AspNetCoreAzureStorage.FilesProvider.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
@@ -31,12 +32,17 @@ namespace AspNetCoreAzureStorage.Pages
             };
         }
 
-        //[ServiceFilter(typeof(ValidateMimeMultipartContentFilter))]
         public async Task<IActionResult> OnPostAsync()
         {
             var fileInfos = new List<(string FileName, string ContentType)>();
             if (ModelState.IsValid)
             {
+                if (!IsMultipartContentType(HttpContext.Request.ContentType))
+                {
+                    ModelState.AddModelError("FileDescriptionShort.File", "not a MultipartContentType");
+                    return Page();
+                }
+
                 foreach (var file in FileDescriptionShort.File)
                 {
                     if (file.Length > 0)
@@ -69,5 +75,10 @@ namespace AspNetCoreAzureStorage.Pages
             return Page();
         }
 
+
+        private static bool IsMultipartContentType(string contentType)
+        {
+            return !string.IsNullOrEmpty(contentType) && contentType.IndexOf("multipart/", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
     }
 }
