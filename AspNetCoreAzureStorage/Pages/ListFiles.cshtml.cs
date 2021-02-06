@@ -36,9 +36,9 @@ namespace AspNetCoreAzureStorage.Pages
         public async Task<ActionResult> OnGetDownloadFile(string fileName)
         {
             var file = await _azureStorageService.DownloadFile(fileName);
-            //file.Value
-            return Page();
+
+            return File(file.Value.Content, file.Value.ContentType, fileName);
         }
-        //
+
     }
 }
