@@ -1,3 +1,5 @@
+![.NET](https://github.com/damienbod/AspNetCoreAzureAdAzureStorage/workflows/.NET/badge.svg)
+
 # ASP.NET Core Azure Storage Secure Files
 
 Assign RBAC for user with role **Storage Blob Data Contributor** and your resource.
