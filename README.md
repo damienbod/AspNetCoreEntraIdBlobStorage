@@ -1,8 +1,10 @@
 # ASP.NET Core Azure Storage Secure Files
 
-Assign RBAC for user with role **Storage Blob Data Contributor** and your rosource.
+Assign RBAC for user with role **Storage Blob Data Contributor** and your resource.
 
-## Setup Azure Storage, Azure AD
+## Blogs
+
+Secure Azure AD User Account File Upload with Azure AD Storage and ASP.NET Core
 
 ## SQL
 
