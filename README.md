@@ -6,7 +6,9 @@ Assign RBAC for user with role **Storage Blob Data Contributor** and your resour
 
 ## Blogs
 
-Secure Azure AD User Account File Upload with Azure AD Storage and ASP.NET Core
+Secure Azure AD User File Upload with Azure AD Storage and ASP.NET Core
+
+https://damienbod.com/2021/02/08/secure-azure-ad-user-account-file-upload-with-azure-ad-storage-and-asp-net-core/
 
 ## SQL
 
@@ -24,3 +26,5 @@ https://winsmarts.com/access-azure-blob-storage-with-standards-based-oauth-authe
 https://stackoverflow.com/questions/45956935/azure-ad-roles-claims-missing-in-access-token
 
 https://github.com/AzureAD/microsoft-identity-web
+
+https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction
