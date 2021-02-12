@@ -30,8 +30,9 @@ namespace AspNetCoreAzureStorage
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<FileDescriptionProvider>();
 
-            services.AddHttpClient();
+            services.AddScoped<GraphApiClientService>();
 
+            services.AddHttpClient();
             services.AddOptions();
 
             string[] initialScopes = Configuration.GetValue<string>("AzureStorage:ScopeForAccessToken")?.Split(' ');
