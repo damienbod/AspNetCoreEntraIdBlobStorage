@@ -38,6 +38,7 @@ namespace AspNetCoreAzureStorage
 
             services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
                 .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
+                .AddMicrosoftGraph("https://graph.microsoft.com/beta", "User.ReadBasic.All user.read")
                 .AddInMemoryTokenCaches();
 
             services.AddRazorPages().AddMvcOptions(options =>
