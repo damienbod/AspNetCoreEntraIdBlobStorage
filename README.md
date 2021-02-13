@@ -30,3 +30,5 @@ https://github.com/AzureAD/microsoft-identity-web
 https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction
 
 https://github.com/425show/b2c-appRoles
+
+https://blogs.aaddevsup.xyz/2020/05/using-azure-management-libraries-for-net-to-manage-azure-ad-users-groups-and-rbac-role-assignments/
