@@ -28,3 +28,5 @@ https://stackoverflow.com/questions/45956935/azure-ad-roles-claims-missing-in-ac
 https://github.com/AzureAD/microsoft-identity-web
 
 https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction
+
+https://github.com/425show/b2c-appRoles

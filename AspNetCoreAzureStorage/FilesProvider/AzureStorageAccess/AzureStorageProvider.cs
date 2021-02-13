@@ -38,18 +38,11 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
         [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
         public async Task<Azure.Response<BlobDownloadInfo>> DownloadFile(string fileName)
         {
-            try
-            {
-                var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
-                var fileFullName = $"{storage}{fileName}";
-                var blobUri = new Uri(fileFullName);
-                var blobClient = new BlobClient(blobUri, _tokenAcquisitionTokenCredential);
-                return await blobClient.DownloadAsync();
-            }
-            catch (Exception e)
-            {
-                throw new ApplicationException($"Exception {e}");
-            }
+            var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
+            var fileFullName = $"{storage}{fileName}";
+            var blobUri = new Uri(fileFullName);
+            var blobClient = new BlobClient(blobUri, _tokenAcquisitionTokenCredential);
+            return await blobClient.DownloadAsync();
         }
 
         private async Task<string> PersistFileToAzureStorage(

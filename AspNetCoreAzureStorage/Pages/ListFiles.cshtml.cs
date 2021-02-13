@@ -7,13 +7,16 @@ using AspNetCoreAzureStorage.FilesProvider.SqlDataAccess;
 using AspNetCoreAzureStorage.FilesProvider.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Identity.Web;
 
 namespace AspNetCoreAzureStorage.Pages
 {
+    [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation", "user.read","Directory.Read.All","User.ReadBasic.All" })]
     public class ListFilesModel : PageModel
     {
         private readonly AzureStorageProvider _azureStorageService;
         private readonly FileDescriptionProvider _fileDescriptionProvider;
+        private readonly GraphApiClientService _graphApiClientService;
 
         [BindProperty]
         public IEnumerable<FileDescriptionDto> FileDescriptions { get; set; }
@@ -22,14 +25,17 @@ namespace AspNetCoreAzureStorage.Pages
         public string FileName { get; set; }
 
         public ListFilesModel(AzureStorageProvider azureStorageService,
-            FileDescriptionProvider fileDescriptionProvider)
+            FileDescriptionProvider fileDescriptionProvider,
+            GraphApiClientService graphApiClientService)
         {
             _azureStorageService = azureStorageService;
             _fileDescriptionProvider = fileDescriptionProvider;
+            _graphApiClientService = graphApiClientService;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
+            await _graphApiClientService.GetGraphApiUser();
             FileDescriptions = _fileDescriptionProvider.GetAllFiles();
         }
 
