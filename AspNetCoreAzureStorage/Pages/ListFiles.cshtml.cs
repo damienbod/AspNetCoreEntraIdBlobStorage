@@ -9,7 +9,7 @@ using Microsoft.Identity.Web;
 
 namespace AspNetCoreAzureStorage.Pages
 {
-    [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation", "user.read","Directory.Read.All","User.ReadBasic.All" })]
+    [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation"})]
     public class ListFilesModel : PageModel
     {
         private readonly AzureStorageProvider _azureStorageService;
