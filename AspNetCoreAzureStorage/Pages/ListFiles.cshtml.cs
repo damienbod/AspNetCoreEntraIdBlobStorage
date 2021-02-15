@@ -33,7 +33,9 @@ namespace AspNetCoreAzureStorage.Pages
 
         public void OnGetAsync()
         {
-            var data = _azureManagementFluentService.GetAssignedRolesAsync();
+            var scope = "subscriptions/1f943d6c-66d4-4c2f-a158-e6b99fcec7a2/resourceGroups/damienbod-rg/providers/Microsoft.Storage/storageAccounts/azureadfiles";
+
+            var data = _azureManagementFluentService.GetAssignedRolesAsync(scope);
             FileDescriptions = _fileDescriptionProvider.GetAllFiles();
         }
 
