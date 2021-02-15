@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess;
 using AspNetCoreAzureStorage.FilesProvider.SqlDataAccess;
@@ -16,7 +14,7 @@ namespace AspNetCoreAzureStorage.Pages
     {
         private readonly AzureStorageProvider _azureStorageService;
         private readonly FileDescriptionProvider _fileDescriptionProvider;
-        private readonly GraphApiClientService _graphApiClientService;
+        private readonly AzureManagementFluentService _azureManagementFluentService;
 
         [BindProperty]
         public IEnumerable<FileDescriptionDto> FileDescriptions { get; set; }
@@ -26,16 +24,16 @@ namespace AspNetCoreAzureStorage.Pages
 
         public ListFilesModel(AzureStorageProvider azureStorageService,
             FileDescriptionProvider fileDescriptionProvider,
-            GraphApiClientService graphApiClientService)
+            AzureManagementFluentService azureManagementFluentService)
         {
             _azureStorageService = azureStorageService;
             _fileDescriptionProvider = fileDescriptionProvider;
-            _graphApiClientService = graphApiClientService;
+            _azureManagementFluentService = azureManagementFluentService;
         }
 
         public async Task OnGetAsync()
         {
-            await _graphApiClientService.GetGraphApiUser();
+            var data = await _azureManagementFluentService.GetAssignedRolesAsync();
             FileDescriptions = _fileDescriptionProvider.GetAllFiles();
         }
 
