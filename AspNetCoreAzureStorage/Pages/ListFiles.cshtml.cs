@@ -31,9 +31,9 @@ namespace AspNetCoreAzureStorage.Pages
             _azureManagementFluentService = azureManagementFluentService;
         }
 
-        public async Task OnGetAsync()
+        public void OnGetAsync()
         {
-            var data = await _azureManagementFluentService.GetAssignedRolesAsync();
+            var data = _azureManagementFluentService.GetAssignedRolesAsync();
             FileDescriptions = _fileDescriptionProvider.GetAllFiles();
         }
 

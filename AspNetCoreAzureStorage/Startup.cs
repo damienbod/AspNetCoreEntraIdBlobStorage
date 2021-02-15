@@ -24,18 +24,22 @@ namespace AspNetCoreAzureStorage
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<AzureStorageProvider>();
+            services.AddTransient<TokenAcquisitionTokenCredential>();
             services.AddDbContext<FileContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddTransient<AzureStorageProvider>();
-            services.AddTransient<AzureManagementFluentService>();
-            services.AddTransient<TokenAcquisitionTokenCredential>();
             services.AddTransient<FileDescriptionProvider>();
+
+            services.AddTransient<AzureManagementFluentService>();
 
             services.AddHttpClient();
             services.AddOptions();
 
-            services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
+            string[] initialScopes = Configuration.GetValue<string>("AzureStorage:ScopeForAccessToken")?.Split(' ');
+
+            services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
+                .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
+                .AddInMemoryTokenCaches();
 
             services.AddRazorPages().AddMvcOptions(options =>
             {
