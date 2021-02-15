@@ -36,7 +36,7 @@ namespace AspNetCoreAzureStorage
         /// </summary>
         /// <param name="scope">Scope of the Azure storage</param>
         /// <returns>IEnumerable of the IRoleAssignment</returns>
-        public IEnumerable<IRoleAssignment> GetStorageBlobDataContributors(string scope)
+        private IEnumerable<IRoleAssignment> GetStorageBlobDataContributors(string scope)
         {
             var roleAssignments = _authenticatedClient
                 .RoleAssignments
@@ -57,7 +57,7 @@ namespace AspNetCoreAzureStorage
         /// </summary>
         /// <param name="scope">Scope of the Azure storage</param>
         /// <returns>IEnumerable of the IRoleAssignment</returns>
-        public IEnumerable<IRoleAssignment> GetStorageBlobDataReaders(string scope)
+        private IEnumerable<IRoleAssignment> GetStorageBlobDataReaders(string scope)
         {
             var roleAssignments = _authenticatedClient
                 .RoleAssignments
