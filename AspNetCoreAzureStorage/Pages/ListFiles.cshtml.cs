@@ -35,7 +35,12 @@ namespace AspNetCoreAzureStorage.Pages
         {
             var scope = "subscriptions/1f943d6c-66d4-4c2f-a158-e6b99fcec7a2/resourceGroups/damienbod-rg/providers/Microsoft.Storage/storageAccounts/azureadfiles";
 
-            var data = _azureManagementFluentService.GetAssignedRolesAsync(scope);
+            var data = _azureManagementFluentService.GetStorageBlobDataContributors(scope);
+
+            var userPrincipalId = User.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
+            var t1 = _azureManagementFluentService.HasRoleStorageBlobDataContributorForScope(userPrincipalId, scope);
+            var t2 = _azureManagementFluentService.HasRoleStorageBlobDataReaderForScope(userPrincipalId, scope);
+
             FileDescriptions = _fileDescriptionProvider.GetAllFiles();
         }
 
