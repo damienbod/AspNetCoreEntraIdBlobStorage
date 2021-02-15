@@ -38,7 +38,7 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
         [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
         public async Task<Azure.Response<BlobDownloadInfo>> DownloadFile(string fileName)
         {
-            
+
 
             var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
             var fileFullName = $"{storage}{fileName}";

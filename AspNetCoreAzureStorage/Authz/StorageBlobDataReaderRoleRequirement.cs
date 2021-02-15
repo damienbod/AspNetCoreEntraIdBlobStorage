@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
- 
+
 namespace AspNetCoreAzureStorage
 {
-    public class StorageBlobDataReaderRoleRequirement : IAuthorizationRequirement{}
+    public class StorageBlobDataReaderRoleRequirement : IAuthorizationRequirement { }
 }

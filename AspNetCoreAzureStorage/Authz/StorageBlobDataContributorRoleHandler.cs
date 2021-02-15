@@ -16,9 +16,10 @@ namespace AspNetCoreAzureStorage
         }
 
         protected override Task HandleRequirementAsync(
-            AuthorizationHandlerContext context, 
+            AuthorizationHandlerContext context,
             StorageBlobDataContributorRoleRequirement requirement
-        ){
+        )
+        {
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
             if (requirement == null)
@@ -31,7 +32,7 @@ namespace AspNetCoreAzureStorage
             if (spIdUserClaim != null)
             {
                 var success = _azureManagementFluentService.HasRoleStorageBlobDataContributorForScope(spIdUserClaim.Value, scope);
-                if(success)
+                if (success)
                 {
                     context.Succeed(requirement);
                 }
