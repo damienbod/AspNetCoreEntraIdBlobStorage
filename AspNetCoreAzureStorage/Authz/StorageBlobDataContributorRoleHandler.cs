@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AspNetCoreRequireMfaOidc
+namespace AspNetCoreAzureStorage
 {
     public class StorageBlobDataContributorRoleHandler : AuthorizationHandler<StorageBlobDataContributorRoleRequirement>
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
  
-namespace AspNetCoreRequireMfaOidc
+namespace AspNetCoreAzureStorage
 {
     public class StorageBlobDataContributorRoleRequirement : IAuthorizationRequirement{}
 }
