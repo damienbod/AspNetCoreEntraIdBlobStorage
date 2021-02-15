@@ -1,6 +1,7 @@
 ﻿using AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess;
 using AspNetCoreAzureStorage.FilesProvider.SqlDataAccess;
 using AspNetCoreAzureStorage.FilesProvider.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -36,6 +37,7 @@ namespace AspNetCoreAzureStorage.Pages
             };
         }
 
+        [Authorize(Policy = "StorageBlobDataContributorPolicy")]
         public async Task<IActionResult> OnPostAsync()
         {
             var fileInfos = new List<(string FileName, string ContentType)>();
