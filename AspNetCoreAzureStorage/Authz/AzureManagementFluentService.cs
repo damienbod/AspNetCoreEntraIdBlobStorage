@@ -76,6 +76,7 @@ namespace AspNetCoreAzureStorage
 
         private void AuthenticateClient()
         {
+            // clint credentials flow with secret
             var clientId = _configuration.GetValue<string>("AzureManagementFluent:ClientId");
             var clientSecret = _configuration.GetValue<string>("AzureManagementFluent:ClientSecret");
             var tenantId = _configuration.GetValue<string>("AzureManagementFluent:TenantId");
