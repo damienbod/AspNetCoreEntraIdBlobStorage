@@ -1,15 +1,16 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess;
 using AspNetCoreAzureStorage.FilesProvider.SqlDataAccess;
 using AspNetCoreAzureStorage.FilesProvider.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Identity.Web;
 
 namespace AspNetCoreAzureStorage.Pages
 {
+    [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
     public class ListFilesModel : PageModel
     {
         private readonly AzureStorageProvider _azureStorageService;
@@ -28,11 +29,13 @@ namespace AspNetCoreAzureStorage.Pages
             _fileDescriptionProvider = fileDescriptionProvider;
         }
 
-        public void OnGet()
+        public void OnGetAsync()
         {
+            // should only return this dat if authz is good.
             FileDescriptions = _fileDescriptionProvider.GetAllFiles();
         }
 
+        [Authorize(Policy = "StorageBlobDataReaderPolicy")]
         public async Task<ActionResult> OnGetDownloadFile(string fileName)
         {
             var file = await _azureStorageService.DownloadFile(fileName);

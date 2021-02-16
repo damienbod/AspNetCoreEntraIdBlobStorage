@@ -30,8 +30,12 @@ namespace AspNetCoreAzureStorage
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<FileDescriptionProvider>();
 
-            services.AddHttpClient();
+            services.AddTransient<AzureManagementFluentService>();
 
+            services.AddSingleton<IAuthorizationHandler, StorageBlobDataContributorRoleHandler>();
+            services.AddSingleton<IAuthorizationHandler, StorageBlobDataReaderRoleHandler>();
+
+            services.AddHttpClient();
             services.AddOptions();
 
             string[] initialScopes = Configuration.GetValue<string>("AzureStorage:ScopeForAccessToken")?.Split(' ');
@@ -39,6 +43,18 @@ namespace AspNetCoreAzureStorage
             services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
                 .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
                 .AddInMemoryTokenCaches();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("StorageBlobDataContributorPolicy", policyIsAdminRequirement =>
+                {
+                    policyIsAdminRequirement.Requirements.Add(new StorageBlobDataContributorRoleRequirement());
+                });
+                options.AddPolicy("StorageBlobDataReaderPolicy", policyIsAdminRequirement =>
+                {
+                    policyIsAdminRequirement.Requirements.Add(new StorageBlobDataReaderRoleRequirement());
+                });
+            });
 
             services.AddRazorPages().AddMvcOptions(options =>
             {
