@@ -10,6 +10,7 @@ using Microsoft.Identity.Web;
 
 namespace AspNetCoreAzureStorage.Pages
 {
+    [Authorize(Policy = "StorageBlobDataReaderPolicy")]
     [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
     public class ListFilesModel : PageModel
     {
@@ -35,7 +36,6 @@ namespace AspNetCoreAzureStorage.Pages
             FileDescriptions = _fileDescriptionProvider.GetAllFiles();
         }
 
-        [Authorize(Policy = "StorageBlobDataReaderPolicy")]
         public async Task<ActionResult> OnGetDownloadFile(string fileName)
         {
             var file = await _azureStorageService.DownloadFile(fileName);

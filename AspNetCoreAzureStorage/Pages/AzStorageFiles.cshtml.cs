@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreAzureStorage.Pages
 {
+    [Authorize(Policy = "StorageBlobDataContributorPolicy")]
     [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
     public class AzStorageFilesModel : PageModel
     {
@@ -37,7 +38,6 @@ namespace AspNetCoreAzureStorage.Pages
             };
         }
 
-        [Authorize(Policy = "StorageBlobDataContributorPolicy")]
         public async Task<IActionResult> OnPostAsync()
         {
             var fileInfos = new List<(string FileName, string ContentType)>();
