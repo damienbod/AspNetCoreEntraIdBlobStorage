@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess;
-using AspNetCoreAzureStorage.FilesProvider.SqlDataAccess;
-using AspNetCoreAzureStorage.FilesProvider.ViewModels;
+using AspNetCoreAzureStorageGroups.FilesProvider.AzureStorageAccess;
+using AspNetCoreAzureStorageGroups.FilesProvider.SqlDataAccess;
+using AspNetCoreAzureStorageGroups.FilesProvider.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Identity.Web;
 
-namespace AspNetCoreAzureStorage.Pages
+namespace AspNetCoreAzureStorageGroups.Pages
 {
     [Authorize(Policy = "StorageBlobDataReaderPolicy")]
     [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
