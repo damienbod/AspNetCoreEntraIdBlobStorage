@@ -12,6 +12,10 @@ Assign RBAC for user with role **Storage Blob Data Contributor** and your resour
 	<li><a href="https://damienbod.com/2021/03/01/using-azure-ad-groups-authorization-in-asp-net-core-for-an-azure-blob-storage/">Using Azure AD groups authorization in ASP.NET Core for an Azure Blob Storage</a></li>
 </ul>
 
+## History
+
+2021-03-11 Updated packages
+
 ## SQL
 
 Add-Migration "init" 
