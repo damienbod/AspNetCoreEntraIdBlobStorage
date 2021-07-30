@@ -12,10 +12,10 @@ namespace AspNetCoreAzureStorageGroups.FilesProvider.AzureStorageAccess
 {
     public class AzureStorageProvider
     {
-        private readonly TokenAcquisitionTokenCredential _tokenAcquisitionTokenCredential;
+        private readonly LocalTokenAcquisitionTokenCredential _tokenAcquisitionTokenCredential;
         private readonly IConfiguration _configuration;
 
-        public AzureStorageProvider(TokenAcquisitionTokenCredential tokenAcquisitionTokenCredential,
+        public AzureStorageProvider(LocalTokenAcquisitionTokenCredential tokenAcquisitionTokenCredential,
             IConfiguration configuration)
         {
             _tokenAcquisitionTokenCredential = tokenAcquisitionTokenCredential;

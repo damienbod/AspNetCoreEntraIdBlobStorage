@@ -25,7 +25,7 @@ namespace AspNetCoreAzureStorageGroups
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<AzureStorageProvider>();
-            services.AddTransient<TokenAcquisitionTokenCredential>();
+            services.AddTransient<LocalTokenAcquisitionTokenCredential>();
             services.AddDbContext<FileContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<FileDescriptionProvider>();
