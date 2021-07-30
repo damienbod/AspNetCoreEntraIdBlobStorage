@@ -19,10 +19,10 @@ namespace AspNetCoreAzureStorageGroups
 
             //  "6705345e-c37e-4f7a-b2d9-e2f43e029524" // StorageContributorsAzureADfiles
 
-            var spIdUserGroup = context.User.Claims.FirstOrDefault(t => t.Type == "groups" && 
+            var spIdUserGroup = context.User.Claims.FirstOrDefault(t => t.Type == "groups" &&
             t.Value == "6705345e-c37e-4f7a-b2d9-e2f43e029524");
 
-            if(spIdUserGroup != null)
+            if (spIdUserGroup != null)
             {
                 context.Succeed(requirement);
             }
