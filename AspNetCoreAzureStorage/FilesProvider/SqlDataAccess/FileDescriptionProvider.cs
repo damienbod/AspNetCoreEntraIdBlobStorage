@@ -1,68 +1,55 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
-using AspNetCoreAzureStorage.FilesProvider.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using AspNetCoreAzureStorage.FilesProvider.ViewModels;
 
-namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess
+namespace AspNetCoreAzureStorage.FilesProvider.SqlDataAccess;
+
+public class FileDescriptionProvider
 {
-    public class FileDescriptionProvider
+    private readonly FileContext _context;
+
+    private readonly IConfiguration _configuration;
+
+    public FileDescriptionProvider(FileContext context,
+        IConfiguration configuration)
     {
+        _context = context;
+        _configuration = configuration;
+    }
 
-        private readonly FileContext _context;
+    public IEnumerable<FileDescriptionDto> GetAllFiles()
+    {
+        var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
 
-        private readonly ILogger _logger;
-        private readonly IConfiguration _configuration;
-
-        public FileDescriptionProvider(FileContext context,
-            ILoggerFactory loggerFactory,
-            IConfiguration configuration)
+        return _context.FileDescriptions.Select(t => new FileDescriptionDto
         {
-            _context = context;
-            _logger = loggerFactory.CreateLogger("FileRepository");
-            _configuration = configuration;
-        }
+            Name = t.FileName,
+            FullName = $"{storage}{t.FileName}",
+            Id = t.Id,
+            UploadedBy = t.UploadedBy,
+            Description = t.Description
+        });
+    }
 
-        public IEnumerable<FileDescriptionDto> GetAllFiles()
+    public FileDescription GetFileDescription(int id)
+    {
+        return _context.FileDescriptions.Single(t => t.Id == id);
+    }
+
+    public async Task AddFileDescriptionsAsync(UploadedFileResult uploadedFileResult)
+    {
+        foreach (var (FileName, ContentType) in uploadedFileResult.FileInfos)
         {
-            var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
-
-            return _context.FileDescriptions.Select(t => new FileDescriptionDto
+            _context.FileDescriptions.Add(new FileDescription
             {
-                Name = t.FileName,
-                FullName = $"{storage}{t.FileName}",
-                Id = t.Id,
-                UploadedBy = t.UploadedBy,
-                Description = t.Description
+                FileName = FileName,
+                ContentType = ContentType,
+                Description = uploadedFileResult.Description,
+                UploadedBy = uploadedFileResult.UploadedBy,
+                CreatedTimestamp = uploadedFileResult.CreatedTimestamp,
+                UpdatedTimestamp = uploadedFileResult.UpdatedTimestamp
             });
         }
 
-        public FileDescription GetFileDescription(int id)
-        {
-            return _context.FileDescriptions.Single(t => t.Id == id);
-        }
-
-        public async Task AddFileDescriptionsAsync(UploadedFileResult uploadedFileResult)
-        {
-            foreach (var (FileName, ContentType) in uploadedFileResult.FileInfos)
-            {
-                _context.FileDescriptions.Add(new FileDescription
-                {
-                    FileName = FileName,
-                    ContentType = ContentType,
-                    Description = uploadedFileResult.Description,
-                    UploadedBy = uploadedFileResult.UploadedBy,
-                    CreatedTimestamp = uploadedFileResult.CreatedTimestamp,
-                    UpdatedTimestamp = uploadedFileResult.UpdatedTimestamp
-                });
-            }
-
-            await _context.SaveChangesAsync();
-
-        }
+        await _context.SaveChangesAsync();
 
     }
 }
-
