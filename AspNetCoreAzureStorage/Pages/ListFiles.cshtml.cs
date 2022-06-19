@@ -18,10 +18,10 @@ namespace AspNetCoreAzureStorage.Pages
         private readonly FileDescriptionProvider _fileDescriptionProvider;
 
         [BindProperty]
-        public IEnumerable<FileDescriptionDto> FileDescriptions { get; set; }
+        public IEnumerable<FileDescriptionDto> FileDescriptions { get; set; } = new List<FileDescriptionDto>();
 
         [BindProperty]
-        public string FileName { get; set; }
+        public string? FileName { get; set; }
 
         public ListFilesModel(AzureStorageProvider azureStorageService,
             FileDescriptionProvider fileDescriptionProvider)
