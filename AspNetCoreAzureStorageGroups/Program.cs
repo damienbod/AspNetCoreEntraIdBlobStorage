@@ -1,15 +1,11 @@
 using AspNetCoreAzureStorageGroups;
 using AspNetCoreAzureStorageGroups.FilesProvider.AzureStorageAccess;
 using AspNetCoreAzureStorageGroups.FilesProvider.SqlDataAccess;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
