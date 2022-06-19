@@ -1,6 +1,7 @@
 using AspNetCoreAzureStorage;
 using AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess;
 using AspNetCoreAzureStorage.FilesProvider.SqlDataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,8 @@ services.AddHttpClient();
 services.AddOptions();
 
 string[]? initialScopes = configuration.GetValue<string>("AzureStorage:ScopeForAccessToken")?.Split(' ');
+
+services.AddTransient<TokenAcquisitionTokenCredential>();
 
 services.AddMicrosoftIdentityWebAppAuthentication(configuration)
     .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
