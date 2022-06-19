@@ -58,8 +58,6 @@ services.AddRazorPages().AddMvcOptions(options =>
     options.Filters.Add(new AuthorizeFilter(policy));
 }).AddMicrosoftIdentityUI();
 
-
-
 var app = builder.Build();
 
 if (env.IsDevelopment())
