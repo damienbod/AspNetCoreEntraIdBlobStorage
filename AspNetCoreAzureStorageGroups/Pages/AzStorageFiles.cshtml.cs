@@ -21,7 +21,7 @@ namespace AspNetCoreAzureStorageGroups.Pages
         private readonly FileDescriptionProvider _fileDescriptionProvider;
 
         [BindProperty]
-        public FileDescriptionUpload FileDescriptionShort { get; set; }
+        public FileDescriptionUpload FileDescriptionShort { get; set; } = new FileDescriptionUpload();
 
         public AzStorageFilesModel(AzureStorageProvider azureStorageService,
             FileDescriptionProvider fileDescriptionProvider)
@@ -43,7 +43,7 @@ namespace AspNetCoreAzureStorageGroups.Pages
             var fileInfos = new List<(string FileName, string ContentType)>();
             if (ModelState.IsValid)
             {
-                if (!IsMultipartContentType(HttpContext.Request.ContentType))
+                if (HttpContext.Request.ContentType == null || !IsMultipartContentType(HttpContext.Request.ContentType))
                 {
                     ModelState.AddModelError("FileDescriptionShort.File", "not a MultipartContentType");
                     return Page();
@@ -53,17 +53,20 @@ namespace AspNetCoreAzureStorageGroups.Pages
                 {
                     if (file.Length > 0)
                     {
-                        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.ToString().Trim('"');
+                        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName?.ToString().Trim('"');
+                        var userName = HttpContext.User.Identity?.Name;
 
-                        fileInfos.Add((fileName, file.ContentType));
-
-                        await _azureStorageService.AddNewFile(new BlobFileUpload
+                        if (fileName != null && userName != null)
                         {
-                            Name = fileName,
-                            Description = FileDescriptionShort.Description,
-                            UploadedBy = HttpContext.User.Identity.Name
-                        },
-                        file);
+                            fileInfos.Add((fileName, file.ContentType));
+
+                            await _azureStorageService.AddNewFile(new BlobFileUpload
+                            {
+                                Name = fileName,
+                                Description = FileDescriptionShort.Description,
+                                UploadedBy = userName
+                            }, file);
+                        }
                     }
                 }
             }
@@ -72,7 +75,7 @@ namespace AspNetCoreAzureStorageGroups.Pages
             {
                 FileInfos = fileInfos,
                 Description = FileDescriptionShort.Description,
-                UploadedBy = HttpContext.User.Identity.Name,
+                UploadedBy = HttpContext.User.Identity?.Name,
                 CreatedTimestamp = DateTime.UtcNow,
                 UpdatedTimestamp = DateTime.UtcNow,
             };
@@ -85,7 +88,7 @@ namespace AspNetCoreAzureStorageGroups.Pages
 
         private static bool IsMultipartContentType(string contentType)
         {
-            return !string.IsNullOrEmpty(contentType) && contentType.IndexOf("multipart/", StringComparison.OrdinalIgnoreCase) >= 0;
+            return !string.IsNullOrEmpty(contentType) && contentType.Contains("multipart/", StringComparison.OrdinalIgnoreCase);
         }
     }
 }

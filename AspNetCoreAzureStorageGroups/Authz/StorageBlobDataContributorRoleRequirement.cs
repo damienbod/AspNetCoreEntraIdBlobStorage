@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace AspNetCoreAzureStorageGroups
-{
-    public class StorageBlobDataContributorRoleRequirement : IAuthorizationRequirement { }
-}
+namespace AspNetCoreAzureStorageGroups;
+
+public class StorageBlobDataContributorRoleRequirement : IAuthorizationRequirement { }
