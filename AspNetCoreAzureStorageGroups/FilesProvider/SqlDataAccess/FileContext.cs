@@ -7,7 +7,7 @@ namespace AspNetCoreAzureStorageGroups.FilesProvider.SqlDataAccess
         public FileContext(DbContextOptions<FileContext> options) : base(options)
         { }
 
-        public DbSet<FileDescription> FileDescriptions { get; set; }
+        public DbSet<FileDescription> FileDescriptions => Set<FileDescription>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

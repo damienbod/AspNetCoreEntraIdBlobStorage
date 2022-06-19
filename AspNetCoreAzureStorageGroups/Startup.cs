@@ -37,7 +37,7 @@ namespace AspNetCoreAzureStorageGroups
             services.AddHttpClient();
             services.AddOptions();
 
-            string[] initialScopes = Configuration.GetValue<string>("AzureStorage:ScopeForAccessToken")?.Split(' ');
+            string[]? initialScopes = Configuration.GetValue<string>("AzureStorage:ScopeForAccessToken")?.Split(' ');
 
             services.AddMicrosoftIdentityWebAppAuthentication(Configuration)
                 .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,6 +29,11 @@ namespace AspNetCoreAzureStorage.FilesProvider.AzureStorageAccess
         {
             // requestContext.Scopes "https://storage.azure.com/.default"
             string[] scopes = _configuration["AzureStorage:ScopeForAccessToken"]?.Split(' ');
+
+            if (scopes == null)
+            {
+                throw new Exception("AzureStorage:ScopeForAccessToken configuration missing");
+            }
 
             AuthenticationResult result = await _tokenAcquisition
                 .GetAuthenticationResultForUserAsync(scopes)

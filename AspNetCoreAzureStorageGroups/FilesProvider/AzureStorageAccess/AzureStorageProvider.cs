@@ -56,7 +56,7 @@ namespace AspNetCoreAzureStorageGroups.FilesProvider.AzureStorageAccess
 
             var blobUploadOptions = new BlobUploadOptions
             {
-                Metadata = new Dictionary<string, string>
+                Metadata = new Dictionary<string, string?>
                 {
                     { "uploadedBy", blobFileUpload.UploadedBy },
                     { "description", blobFileUpload.Description }
