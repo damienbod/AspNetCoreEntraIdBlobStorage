@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Identity.Web;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace AspNetCoreAzureStorageGroups.Pages;
 
@@ -14,6 +15,7 @@ public class ListFilesModel : PageModel
 {
     private readonly AzureStorageProvider _azureStorageService;
     private readonly FileDescriptionProvider _fileDescriptionProvider;
+    private readonly ITokenAcquisition _tokenAcquisition;
 
     [BindProperty]
     public IEnumerable<FileDescriptionDto> FileDescriptions { get; set; } 
@@ -23,14 +25,17 @@ public class ListFilesModel : PageModel
     public string? FileName { get; set; }
 
     public ListFilesModel(AzureStorageProvider azureStorageService,
+        ITokenAcquisition tokenAcquisition,
         FileDescriptionProvider fileDescriptionProvider)
     {
         _azureStorageService = azureStorageService;
         _fileDescriptionProvider = fileDescriptionProvider;
+        _tokenAcquisition = tokenAcquisition;
     }
 
-    public void OnGetAsync()
+    public async Task OnGetAsync()
     {
+        var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { "https://storage.azure.com/user_impersonation" });
         // should only return this dat if authz is good.
         FileDescriptions = _fileDescriptionProvider.GetAllFiles();
     }
