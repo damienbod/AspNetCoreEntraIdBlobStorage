@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreAzureStorage", "AspNetCoreAzureStorage\AspNetCoreAzureStorage.csproj", "{E4FD3F3B-AA37-4FD7-90D4-4107D4D6A9FD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{469838A0-8A9C-4F24-AF3E-041E547F70A5}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E4FD3F3B-AA37-4FD7-90D4-4107D4D6A9FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4FD3F3B-AA37-4FD7-90D4-4107D4D6A9FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4FD3F3B-AA37-4FD7-90D4-4107D4D6A9FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4FD3F3B-AA37-4FD7-90D4-4107D4D6A9FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{77C6AEBE-489B-454B-9D01-B1969C8247FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{77C6AEBE-489B-454B-9D01-B1969C8247FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77C6AEBE-489B-454B-9D01-B1969C8247FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
