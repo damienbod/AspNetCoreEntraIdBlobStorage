@@ -6,8 +6,8 @@ Assign RBAC for user with role **Storage Blob Data Contributor** and your resour
 
 ## Blogs
 
-[Secure Azure AD User File Upload with Azure AD Storage and ASP.NET Core](https://damienbod.com/2021/02/08/secure-azure-ad-user-account-file-upload-with-azure-ad-storage-and-asp-net-core)
-[Using Azure AD groups authorization in ASP.NET Core for an Azure Blob Storage](https://damienbod.com/2021/03/01/using-azure-ad-groups-authorization-in-asp-net-core-for-an-azure-blob-storage)
+- [Secure Azure AD User File Upload with Azure AD Storage and ASP.NET Core](https://damienbod.com/2021/02/08/secure-azure-ad-user-account-file-upload-with-azure-ad-storage-and-asp-net-core)
+- [Using Azure AD groups authorization in ASP.NET Core for an Azure Blob Storage](https://damienbod.com/2021/03/01/using-azure-ad-groups-authorization-in-asp-net-core-for-an-azure-blob-storage)
 
 ### old
 
