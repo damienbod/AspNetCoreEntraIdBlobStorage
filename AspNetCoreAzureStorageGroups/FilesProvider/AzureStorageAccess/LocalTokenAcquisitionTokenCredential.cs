@@ -26,7 +26,7 @@ public class LocalTokenAcquisitionTokenCredential : TokenCredential
         // requestContext.Scopes "https://storage.azure.com/.default"
         string[]? scopes = _configuration["AzureStorage:ScopeForAccessToken"]?.Split(' ');
 
-        if(scopes == null)
+        if (scopes == null)
         {
             throw new Exception("AzureStorage:ScopeForAccessToken configuration missing");
         }

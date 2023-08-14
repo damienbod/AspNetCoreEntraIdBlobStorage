@@ -35,6 +35,7 @@ public class ListFilesModel : PageModel
 
     public async Task OnGetAsync()
     {
+        // gets an access token
         var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { "https://storage.azure.com/user_impersonation" });
         // should only return this dat if authz is good.
         FileDescriptions = _fileDescriptionProvider.GetAllFiles();

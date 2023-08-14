@@ -4,18 +4,12 @@ namespace AspNetCoreAzureStorageGroups.FilesProvider.SqlDataAccess;
 
 public class FileDescriptionProvider
 {
-
     private readonly FileContext _context;
-
-    private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
 
-    public FileDescriptionProvider(FileContext context,
-        ILoggerFactory loggerFactory,
-        IConfiguration configuration)
+    public FileDescriptionProvider(FileContext context, IConfiguration configuration)
     {
-        _context = context;
-        _logger = loggerFactory.CreateLogger("FileRepository");
+        _context = context;;
         _configuration = configuration;
     }
 
