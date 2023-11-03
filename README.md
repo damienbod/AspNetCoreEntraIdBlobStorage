@@ -15,21 +15,15 @@ Assign RBAC for user with role **Storage Blob Data Contributor** and your resour
 
 ## History
 
-2023-08-14 Updated packages
-
-2023-04-29 Updated packages
-
-2023-01-22 Updated to .NET 7
-
-2022-10-24 Updated packages
-
-2022-06-19 Updated packages
-
-2022-01-28 Updated packages, Updated to .NET 6
-
-2021-07-30 Updated packages
-
-2021-03-11 Updated packages
+- 2023-11-03 Updated packages
+- 2023-08-14 Updated packages
+- 2023-04-29 Updated packages
+- 2023-01-22 Updated to .NET 7
+- 2022-10-24 Updated packages
+- 2022-06-19 Updated packages
+- 2022-01-28 Updated packages, Updated to .NET 6
+- 2021-07-30 Updated packages
+- 2021-03-11 Updated packages
 
 ## SQL
 
@@ -38,7 +32,7 @@ Add-Migration "UploadedBy"
 
 Update-Database 
 
-# Links
+## Links
 
 https://github.com/Azure-Samples/storage-dotnet-azure-ad-msal
 
