@@ -15,6 +15,7 @@ Assign RBAC for user with role **Storage Blob Data Contributor** and your resour
 
 ## History
 
+- 2024-02-07 .NET 8
 - 2023-11-03 Updated packages
 - 2023-08-14 Updated packages
 - 2023-04-29 Updated packages
