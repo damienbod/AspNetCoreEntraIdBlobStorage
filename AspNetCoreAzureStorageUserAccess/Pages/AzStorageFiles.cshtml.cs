@@ -2,28 +2,24 @@
 using AspNetCoreAzureStorageUserAccess.FilesProvider.SqlDataAccess;
 using AspNetCoreAzureStorageUserAccess.FilesProvider.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Identity.Web;
-using System;
-using System.Collections.Generic;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 
 namespace AspNetCoreAzureStorageUserAccess.Pages
 {
-    [Authorize(Policy = "StorageBlobDataContributorPolicy")]
-    [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
+    [Authorize(Policy = "blob-one-write-policy")]
+    [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
     public class AzStorageFilesModel : PageModel
     {
-        private readonly AzureStorageProvider _azureStorageService;
+        private readonly AzureBlobStorageProvider _azureStorageService;
         private readonly FileDescriptionProvider _fileDescriptionProvider;
 
         [BindProperty]
         public FileDescriptionUpload FileDescriptionShort { get; set; } = new FileDescriptionUpload();
 
-        public AzStorageFilesModel(AzureStorageProvider azureStorageService,
+        public AzStorageFilesModel(AzureBlobStorageProvider azureStorageService,
             FileDescriptionProvider fileDescriptionProvider)
         {
             _azureStorageService = azureStorageService;
@@ -60,7 +56,7 @@ namespace AspNetCoreAzureStorageUserAccess.Pages
                         {
                             fileInfos.Add((fileName, file.ContentType));
 
-                            await _azureStorageService.AddNewFile(new BlobFileUpload
+                            await _azureStorageService.AddNewFile(new BlobFileUploadModel
                             {
                                 Name = fileName,
                                 Description = FileDescriptionShort.Description,

@@ -19,7 +19,7 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 var env = builder.Environment;
 
-services.AddScoped<AzureStorageProvider>();
+services.AddScoped<AzureBlobStorageProvider>();
 services.AddTransient<LocalTokenAcquisitionTokenCredential>();
 
 services.AddDbContext<FileContext>(options =>
@@ -40,6 +40,10 @@ services.AddAuthorization(options =>
     options.AddPolicy("blob-one-read-policy", policyBlobOneRead =>
     {
         policyBlobOneRead.RequireClaim("roles", ["blobreadrole", "blobwriterole"]);
+    });
+    options.AddPolicy("blob-one-write-policy", policyBlobOneRead =>
+    {
+        policyBlobOneRead.RequireClaim("roles", ["blobwriterole"]);
     });
 });
 

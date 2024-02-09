@@ -23,7 +23,6 @@ public class LocalTokenAcquisitionTokenCredential : TokenCredential
 
     public override async ValueTask<AccessToken> GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
     {
-        // requestContext.Scopes "https://storage.azure.com/.default"
         string[]? scopes = _configuration["AzureStorage:ScopeForAccessToken"]?.Split(' ');
 
         if (scopes == null)

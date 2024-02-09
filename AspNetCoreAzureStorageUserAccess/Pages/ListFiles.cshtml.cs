@@ -12,7 +12,7 @@ namespace AspNetCoreAzureStorageUserAccess.Pages;
 [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
 public class ListFilesModel : PageModel
 {
-    private readonly AzureStorageProvider _azureStorageService;
+    private readonly AzureBlobStorageProvider _azureStorageService;
     private readonly FileDescriptionProvider _fileDescriptionProvider;
     private readonly ITokenAcquisition _tokenAcquisition;
 
@@ -23,7 +23,7 @@ public class ListFilesModel : PageModel
     [BindProperty]
     public string? FileName { get; set; }
 
-    public ListFilesModel(AzureStorageProvider azureStorageService,
+    public ListFilesModel(AzureBlobStorageProvider azureStorageService,
         ITokenAcquisition tokenAcquisition,
         FileDescriptionProvider fileDescriptionProvider)
     {
@@ -34,7 +34,7 @@ public class ListFilesModel : PageModel
 
     public async Task OnGetAsync()
     {
-        // gets an access token
+        // gets a user access token
         var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { "https://storage.azure.com/user_impersonation" });
         // should only return this dat if authz is good.
         FileDescriptions = _fileDescriptionProvider.GetAllFiles();

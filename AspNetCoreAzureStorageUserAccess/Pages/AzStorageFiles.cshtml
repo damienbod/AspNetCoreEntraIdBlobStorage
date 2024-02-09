@@ -7,7 +7,7 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-@if ((await AuthorizationService.AuthorizeAsync(User, "StorageBlobDataContributorPolicy")).Succeeded)
+@if ((await AuthorizationService.AuthorizeAsync(User, "blob-one-write-policy")).Succeeded)
 {
     <div class="card">
         <div class="card-header">Uploaded Files</div>

@@ -4,12 +4,12 @@ using Microsoft.Identity.Web;
 
 namespace AspNetCoreAzureStorageUserAccess.FilesProvider.AzureStorageAccess;
 
-public class AzureStorageProvider
+public class AzureBlobStorageProvider
 {
     private readonly LocalTokenAcquisitionTokenCredential _tokenAcquisitionTokenCredential;
     private readonly IConfiguration _configuration;
 
-    public AzureStorageProvider(LocalTokenAcquisitionTokenCredential tokenAcquisitionTokenCredential,
+    public AzureBlobStorageProvider(LocalTokenAcquisitionTokenCredential tokenAcquisitionTokenCredential,
         IConfiguration configuration)
     {
         _tokenAcquisitionTokenCredential = tokenAcquisitionTokenCredential;
@@ -17,7 +17,7 @@ public class AzureStorageProvider
     }
 
     [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
-    public async Task<string> AddNewFile(BlobFileUpload blobFileUpload, IFormFile file)
+    public async Task<string> AddNewFile(BlobFileUploadModel blobFileUpload, IFormFile file)
     {
         try
         {
@@ -40,7 +40,7 @@ public class AzureStorageProvider
     }
 
     private async Task<string> PersistFileToAzureStorage(
-        BlobFileUpload blobFileUpload,
+        BlobFileUploadModel blobFileUpload,
         IFormFile formFile,
         CancellationToken cancellationToken = default)
     {
@@ -62,6 +62,6 @@ public class AzureStorageProvider
         var inputStream = formFile.OpenReadStream();
         await blobClient.UploadAsync(inputStream, blobUploadOptions, cancellationToken);
 
-        return $"{blobFileUpload.Name} successfully saved to Azure Storage Container";
+        return $"{blobFileUpload.Name} successfully saved to Azure Blob Storage Container";
     }
 }
