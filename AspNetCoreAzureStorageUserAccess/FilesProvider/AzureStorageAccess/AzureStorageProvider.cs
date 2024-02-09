@@ -16,7 +16,7 @@ public class AzureStorageProvider
         _configuration = configuration;
     }
 
-    [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
+    [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
     public async Task<string> AddNewFile(BlobFileUpload blobFileUpload, IFormFile file)
     {
         try
@@ -29,7 +29,7 @@ public class AzureStorageProvider
         }
     }
 
-    [AuthorizeForScopes(Scopes = new string[] { "https://storage.azure.com/user_impersonation" })]
+    [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
     public async Task<Azure.Response<BlobDownloadInfo>> DownloadFile(string fileName)
     {
         var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");

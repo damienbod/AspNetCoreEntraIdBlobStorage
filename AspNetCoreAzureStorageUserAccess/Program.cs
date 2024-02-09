@@ -1,4 +1,3 @@
-using AspNetCoreAzureStorageUserAccess;
 using AspNetCoreAzureStorageUserAccess.FilesProvider.AzureStorageAccess;
 using AspNetCoreAzureStorageUserAccess.FilesProvider.SqlDataAccess;
 using Microsoft.AspNetCore.Authorization;
@@ -20,12 +19,10 @@ var env = builder.Environment;
 
 services.AddScoped<AzureStorageProvider>();
 services.AddTransient<LocalTokenAcquisitionTokenCredential>();
+
 services.AddDbContext<FileContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 services.AddTransient<FileDescriptionProvider>();
-
-services.AddSingleton<IAuthorizationHandler, StorageBlobDataContributorRoleHandler>();
-services.AddSingleton<IAuthorizationHandler, StorageBlobDataReaderRoleHandler>();
 
 services.AddHttpClient();
 services.AddOptions();
@@ -36,17 +33,7 @@ services.AddMicrosoftIdentityWebAppAuthentication(configuration)
     .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
     .AddInMemoryTokenCaches();
 
-services.AddAuthorization(options =>
-{
-    options.AddPolicy("StorageBlobDataContributorPolicy", policyIsAdminRequirement =>
-    {
-        policyIsAdminRequirement.Requirements.Add(new StorageBlobDataContributorRoleRequirement());
-    });
-    options.AddPolicy("StorageBlobDataReaderPolicy", policyIsAdminRequirement =>
-    {
-        policyIsAdminRequirement.Requirements.Add(new StorageBlobDataReaderRoleRequirement());
-    });
-});
+services.AddAuthorization();
 
 services.AddRazorPages().AddMvcOptions(options =>
 {
@@ -55,8 +42,6 @@ services.AddRazorPages().AddMvcOptions(options =>
         .Build();
     options.Filters.Add(new AuthorizeFilter(policy));
 }).AddMicrosoftIdentityUI();
-
-
 
 var app = builder.Build();
 
