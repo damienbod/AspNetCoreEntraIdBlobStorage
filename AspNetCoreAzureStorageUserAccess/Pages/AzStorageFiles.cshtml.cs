@@ -7,84 +7,83 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Identity.Web;
 using System.Net.Http.Headers;
 
-namespace AspNetCoreAzureStorageUserAccess.Pages
+namespace AspNetCoreAzureStorageUserAccess.Pages;
+
+[Authorize(Policy = "blob-one-write-policy")]
+[AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
+public class AzStorageFilesModel : PageModel
 {
-    [Authorize(Policy = "blob-one-write-policy")]
-    [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
-    public class AzStorageFilesModel : PageModel
+    private readonly AzureBlobStorageProvider _azureStorageService;
+    private readonly FileDescriptionProvider _fileDescriptionProvider;
+
+    [BindProperty]
+    public FileDescriptionUpload FileDescriptionShort { get; set; } = new FileDescriptionUpload();
+
+    public AzStorageFilesModel(AzureBlobStorageProvider azureStorageService,
+        FileDescriptionProvider fileDescriptionProvider)
     {
-        private readonly AzureBlobStorageProvider _azureStorageService;
-        private readonly FileDescriptionProvider _fileDescriptionProvider;
+        _azureStorageService = azureStorageService;
+        _fileDescriptionProvider = fileDescriptionProvider;
+    }
 
-        [BindProperty]
-        public FileDescriptionUpload FileDescriptionShort { get; set; } = new FileDescriptionUpload();
-
-        public AzStorageFilesModel(AzureBlobStorageProvider azureStorageService,
-            FileDescriptionProvider fileDescriptionProvider)
+    public void OnGet()
+    {
+        FileDescriptionShort = new FileDescriptionUpload
         {
-            _azureStorageService = azureStorageService;
-            _fileDescriptionProvider = fileDescriptionProvider;
-        }
+            Description = "enter description"
+        };
+    }
 
-        public void OnGet()
+    public async Task<IActionResult> OnPostAsync()
+    {
+        var fileInfos = new List<(string FileName, string ContentType)>();
+        if (ModelState.IsValid)
         {
-            FileDescriptionShort = new FileDescriptionUpload
+            if (HttpContext.Request.ContentType == null || !IsMultipartContentType(HttpContext.Request.ContentType))
             {
-                Description = "enter description"
-            };
-        }
+                ModelState.AddModelError("FileDescriptionShort.File", "not a MultipartContentType");
+                return Page();
+            }
 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            var fileInfos = new List<(string FileName, string ContentType)>();
-            if (ModelState.IsValid)
+            foreach (var file in FileDescriptionShort.File)
             {
-                if (HttpContext.Request.ContentType == null || !IsMultipartContentType(HttpContext.Request.ContentType))
+                if (file.Length > 0)
                 {
-                    ModelState.AddModelError("FileDescriptionShort.File", "not a MultipartContentType");
-                    return Page();
-                }
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName?.ToString().Trim('"');
+                    var userName = HttpContext.User.Identity?.Name;
 
-                foreach (var file in FileDescriptionShort.File)
-                {
-                    if (file.Length > 0)
+                    if (fileName != null && userName != null)
                     {
-                        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName?.ToString().Trim('"');
-                        var userName = HttpContext.User.Identity?.Name;
+                        fileInfos.Add((fileName, file.ContentType));
 
-                        if (fileName != null && userName != null)
+                        await _azureStorageService.AddNewFile(new BlobFileUploadModel
                         {
-                            fileInfos.Add((fileName, file.ContentType));
-
-                            await _azureStorageService.AddNewFile(new BlobFileUploadModel
-                            {
-                                Name = fileName,
-                                Description = FileDescriptionShort.Description,
-                                UploadedBy = userName
-                            }, file);
-                        }
+                            Name = fileName,
+                            Description = FileDescriptionShort.Description,
+                            UploadedBy = userName
+                        }, file);
                     }
                 }
             }
-
-            var files = new UploadedFileResult
-            {
-                FileInfos = fileInfos,
-                Description = FileDescriptionShort.Description,
-                UploadedBy = HttpContext.User.Identity?.Name,
-                CreatedTimestamp = DateTime.UtcNow,
-                UpdatedTimestamp = DateTime.UtcNow,
-            };
-
-            await _fileDescriptionProvider.AddFileDescriptionsAsync(files);
-
-            return Page();
         }
 
-
-        private static bool IsMultipartContentType(string contentType)
+        var files = new UploadedFileResult
         {
-            return !string.IsNullOrEmpty(contentType) && contentType.Contains("multipart/", StringComparison.OrdinalIgnoreCase);
-        }
+            FileInfos = fileInfos,
+            Description = FileDescriptionShort.Description,
+            UploadedBy = HttpContext.User.Identity?.Name,
+            CreatedTimestamp = DateTime.UtcNow,
+            UpdatedTimestamp = DateTime.UtcNow,
+        };
+
+        await _fileDescriptionProvider.AddFileDescriptionsAsync(files);
+
+        return Page();
+    }
+
+
+    private static bool IsMultipartContentType(string contentType)
+    {
+        return !string.IsNullOrEmpty(contentType) && contentType.Contains("multipart/", StringComparison.OrdinalIgnoreCase);
     }
 }
