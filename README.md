@@ -2,6 +2,8 @@
 
 # ASP.NET Core Azure Blob Storage Secure upload, download
 
+![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams.png)
+
 Assign RBAC for user/group/sp with role **Storage Blob Data Contributor** or **Storage Blob Data Reader** and your resource.
 
 ## Blogs
