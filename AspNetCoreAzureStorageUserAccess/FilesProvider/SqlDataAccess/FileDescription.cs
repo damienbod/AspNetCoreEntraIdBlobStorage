@@ -1,4 +1,4 @@
-﻿namespace AspNetCoreAzureStorageUserAccess.FilesProvider.SqlDataAccess;
+﻿namespace DelegatedEntraIDBlobStorage.FilesProvider.SqlDataAccess;
 
 public class FileDescription
 {

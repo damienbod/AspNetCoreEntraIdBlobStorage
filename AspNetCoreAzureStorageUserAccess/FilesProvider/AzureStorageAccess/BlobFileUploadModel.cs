@@ -1,4 +1,4 @@
-﻿namespace AspNetCoreAzureStorageUserAccess.FilesProvider.AzureStorageAccess;
+﻿namespace DelegatedEntraIDBlobStorage.FilesProvider.AzureStorageAccess;
 
 public class BlobFileUploadModel
 {

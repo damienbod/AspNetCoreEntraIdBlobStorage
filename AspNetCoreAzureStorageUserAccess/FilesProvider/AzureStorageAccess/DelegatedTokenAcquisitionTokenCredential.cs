@@ -2,7 +2,7 @@
 using Microsoft.Identity.Client;
 using Microsoft.Identity.Web;
 
-namespace AspNetCoreAzureStorageUserAccess.FilesProvider.AzureStorageAccess;
+namespace DelegatedEntraIDBlobStorage.FilesProvider.AzureStorageAccess;
 
 public class DelegatedTokenAcquisitionTokenCredential : TokenCredential
 {

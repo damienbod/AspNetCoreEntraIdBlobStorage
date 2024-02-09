@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace AspNetCoreAzureStorageUserAccess.FilesProvider.SqlDataAccess;
+namespace DelegatedEntraIDBlobStorage.FilesProvider.SqlDataAccess;
 
 public class FileContext : DbContext
 {

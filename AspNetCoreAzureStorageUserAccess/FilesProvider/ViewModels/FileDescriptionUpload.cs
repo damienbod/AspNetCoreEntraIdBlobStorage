@@ -1,4 +1,4 @@
-﻿namespace AspNetCoreAzureStorageUserAccess.FilesProvider.ViewModels;
+﻿namespace DelegatedEntraIDBlobStorage.FilesProvider.ViewModels;
 
 public class FileDescriptionUpload
 {

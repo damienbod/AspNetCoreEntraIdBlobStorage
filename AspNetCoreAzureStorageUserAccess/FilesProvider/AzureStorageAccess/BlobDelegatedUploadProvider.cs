@@ -2,7 +2,7 @@
 using Azure.Storage.Blobs.Models;
 using Microsoft.Identity.Web;
 
-namespace AspNetCoreAzureStorageUserAccess.FilesProvider.AzureStorageAccess;
+namespace DelegatedEntraIDBlobStorage.FilesProvider.AzureStorageAccess;
 
 public class BlobDelegatedUploadProvider
 {

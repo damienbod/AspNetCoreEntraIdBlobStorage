@@ -1,6 +1,6 @@
-﻿using AspNetCoreAzureStorageUserAccess.FilesProvider.ViewModels;
+﻿using DelegatedEntraIDBlobStorage.FilesProvider.ViewModels;
 
-namespace AspNetCoreAzureStorageUserAccess.FilesProvider.SqlDataAccess;
+namespace DelegatedEntraIDBlobStorage.FilesProvider.SqlDataAccess;
 
 public class FileDescriptionProvider
 {
