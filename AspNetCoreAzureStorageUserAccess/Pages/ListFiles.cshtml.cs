@@ -13,7 +13,6 @@ namespace AspNetCoreAzureStorageUserAccess.Pages;
 public class ListFilesModel : PageModel
 {
     private readonly BlobDownloadUserAadProvider _blobDownloadUserAadProvider;
-    private readonly BlobDownloadUserSasProvider _blobDownloadUserSasProvider;
     private readonly FileDescriptionProvider _fileDescriptionProvider;
     private readonly ITokenAcquisition _tokenAcquisition;
 
@@ -26,12 +25,10 @@ public class ListFilesModel : PageModel
 
     public ListFilesModel(
         BlobDownloadUserAadProvider blobDownloadUserAadProvider,
-        BlobDownloadUserSasProvider blobDownloadUserSasProvider,
         ITokenAcquisition tokenAcquisition,
         FileDescriptionProvider fileDescriptionProvider)
     {
         _blobDownloadUserAadProvider = blobDownloadUserAadProvider;
-        _blobDownloadUserSasProvider = blobDownloadUserSasProvider;
         _fileDescriptionProvider = fileDescriptionProvider;
         _tokenAcquisition = tokenAcquisition;
     }
@@ -49,10 +46,7 @@ public class ListFilesModel : PageModel
     public async Task<ActionResult> OnGetDownloadFile(string fileName)
     {
         // Use Entra ID
-        //var file = await _blobDownloadUserAadProvider.DownloadFile(fileName);
-
-        // User user delegated SAS
-        var file = await _blobDownloadUserSasProvider.DownloadFile(fileName);
+        var file = await _blobDownloadUserAadProvider.DownloadFile(fileName);
 
         return File(file.Value.Content, file.Value.ContentType, fileName);
     }

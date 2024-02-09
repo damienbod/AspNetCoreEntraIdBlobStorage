@@ -21,7 +21,6 @@ var env = builder.Environment;
 
 services.AddScoped<BlobUploadProvider>();
 services.AddScoped<BlobDownloadUserAadProvider>();
-services.AddScoped<BlobDownloadUserSasProvider>();
 
 services.AddTransient<LocalTokenAcquisitionTokenCredential>();
 
