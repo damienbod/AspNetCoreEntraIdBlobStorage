@@ -2,7 +2,7 @@
 
 # ASP.NET Core using Azure Blob Storage 
 
-Secure upload, download
+Secure upload and secure download. Users are authenticated using Microsoft Entra ID. The blob storage containers use Azure security groups to control the access. The upload and the download access is separated into different groups. 
 
 ![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams.png)
 
