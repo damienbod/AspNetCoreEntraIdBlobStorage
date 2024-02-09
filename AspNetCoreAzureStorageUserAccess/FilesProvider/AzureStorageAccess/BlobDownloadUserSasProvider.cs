@@ -61,8 +61,8 @@ public class BlobDownloadUserSasProvider
     public async Task<Azure.Response<BlobDownloadInfo>> DownloadFile(string fileName)
     {
         var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
-        //var fileFullName = $"{storage}/{fileName}";
-        //var blobUri = new Uri(fileFullName);
+        var fileFullName = $"{storage}/{fileName}";
+        var blobUri = new Uri(fileFullName);
         //var blobClient = new BlobClient(blobUri, _tokenAcquisitionTokenCredential);
 
         var blobServiceClient = new BlobServiceClient(
@@ -70,7 +70,7 @@ public class BlobDownloadUserSasProvider
             _tokenAcquisitionTokenCredential);
 
         var blobClient = blobServiceClient
-                .GetBlobContainerClient(storage)
+                .GetBlobContainerClient("https://blobsecurity.blob.core.windows.net/blob-one")
                 .GetBlobClient(fileName);
 
         var userDelegationKey = await RequestUserDelegationKey(blobServiceClient);
