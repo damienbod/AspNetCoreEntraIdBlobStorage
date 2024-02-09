@@ -33,7 +33,7 @@ public class BlobUploadProvider
     public async Task<Azure.Response<BlobDownloadInfo>> DownloadFile(string fileName)
     {
         var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
-        var fileFullName = $"{storage}{fileName}";
+        var fileFullName = $"{storage}/{fileName}";
         var blobUri = new Uri(fileFullName);
         var blobClient = new BlobClient(blobUri, _tokenAcquisitionTokenCredential);
         return await blobClient.DownloadAsync();
@@ -45,7 +45,7 @@ public class BlobUploadProvider
         CancellationToken cancellationToken = default)
     {
         var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
-        var fileFullName = $"{storage}{blobFileUpload.Name}";
+        var fileFullName = $"{storage}/{blobFileUpload.Name}";
         var blobUri = new Uri(fileFullName);
 
         var blobUploadOptions = new BlobUploadOptions
