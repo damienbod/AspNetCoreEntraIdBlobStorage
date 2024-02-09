@@ -35,6 +35,8 @@ Update-Database
 
 ## Links
 
+https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blob-user-delegation-sas-create-dotnet
+
 https://github.com/Azure-Samples/storage-dotnet-azure-ad-msal
 
 https://winsmarts.com/access-azure-blob-storage-with-standards-based-oauth-authentication-b10d201cbd15

@@ -12,7 +12,7 @@ namespace AspNetCoreAzureStorageUserAccess.Pages;
 [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
 public class ListFilesModel : PageModel
 {
-    private readonly AzureBlobStorageProvider _azureStorageService;
+    private readonly BlobDelegatedDownloadProvider _blobDownloadUserAadProvider;
     private readonly FileDescriptionProvider _fileDescriptionProvider;
     private readonly ITokenAcquisition _tokenAcquisition;
 
@@ -23,11 +23,12 @@ public class ListFilesModel : PageModel
     [BindProperty]
     public string? FileName { get; set; }
 
-    public ListFilesModel(AzureBlobStorageProvider azureStorageService,
+    public ListFilesModel(
+        BlobDelegatedDownloadProvider blobDownloadUserAadProvider,
         ITokenAcquisition tokenAcquisition,
         FileDescriptionProvider fileDescriptionProvider)
     {
-        _azureStorageService = azureStorageService;
+        _blobDownloadUserAadProvider = blobDownloadUserAadProvider;
         _fileDescriptionProvider = fileDescriptionProvider;
         _tokenAcquisition = tokenAcquisition;
     }
@@ -35,14 +36,17 @@ public class ListFilesModel : PageModel
     public async Task OnGetAsync()
     {
         // gets a user access token
-        var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(new[] { "https://storage.azure.com/user_impersonation" });
+        var accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(
+            new[] { "https://storage.azure.com/user_impersonation" });
+
         // should only return this dat if authz is good.
         FileDescriptions = _fileDescriptionProvider.GetAllFiles();
     }
 
     public async Task<ActionResult> OnGetDownloadFile(string fileName)
     {
-        var file = await _azureStorageService.DownloadFile(fileName);
+        // Use Entra ID
+        var file = await _blobDownloadUserAadProvider.DownloadFile(fileName);
 
         return File(file.Value.Content, file.Value.ContentType, fileName);
     }

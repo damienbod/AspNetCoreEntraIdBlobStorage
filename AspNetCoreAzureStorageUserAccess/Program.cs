@@ -19,8 +19,10 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 var env = builder.Environment;
 
-services.AddScoped<AzureBlobStorageProvider>();
-services.AddTransient<LocalTokenAcquisitionTokenCredential>();
+services.AddScoped<BlobDelegatedUploadProvider>();
+services.AddScoped<BlobDelegatedDownloadProvider>();
+
+services.AddTransient<DelegatedTokenAcquisitionTokenCredential>();
 
 services.AddDbContext<FileContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));

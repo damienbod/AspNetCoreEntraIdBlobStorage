@@ -13,16 +13,16 @@ namespace AspNetCoreAzureStorageUserAccess.Pages;
 [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
 public class AzStorageFilesModel : PageModel
 {
-    private readonly AzureBlobStorageProvider _azureStorageService;
+    private readonly BlobDelegatedUploadProvider _blobUploadProvider;
     private readonly FileDescriptionProvider _fileDescriptionProvider;
 
     [BindProperty]
     public FileDescriptionUpload FileDescriptionShort { get; set; } = new FileDescriptionUpload();
 
-    public AzStorageFilesModel(AzureBlobStorageProvider azureStorageService,
+    public AzStorageFilesModel(BlobDelegatedUploadProvider blobUploadProvider,
         FileDescriptionProvider fileDescriptionProvider)
     {
-        _azureStorageService = azureStorageService;
+        _blobUploadProvider = blobUploadProvider;
         _fileDescriptionProvider = fileDescriptionProvider;
     }
 
@@ -56,7 +56,7 @@ public class AzStorageFilesModel : PageModel
                     {
                         fileInfos.Add((fileName, file.ContentType));
 
-                        await _azureStorageService.AddNewFile(new BlobFileUploadModel
+                        await _blobUploadProvider.AddNewFile(new BlobFileUploadModel
                         {
                             Name = fileName,
                             Description = FileDescriptionShort.Description,
@@ -80,7 +80,6 @@ public class AzStorageFilesModel : PageModel
 
         return Page();
     }
-
 
     private static bool IsMultipartContentType(string contentType)
     {

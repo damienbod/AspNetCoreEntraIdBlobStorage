@@ -4,12 +4,12 @@ using Microsoft.Identity.Web;
 
 namespace AspNetCoreAzureStorageUserAccess.FilesProvider.AzureStorageAccess;
 
-public class LocalTokenAcquisitionTokenCredential : TokenCredential
+public class DelegatedTokenAcquisitionTokenCredential : TokenCredential
 {
     private readonly ITokenAcquisition _tokenAcquisition;
     private readonly IConfiguration _configuration;
 
-    public LocalTokenAcquisitionTokenCredential(ITokenAcquisition tokenAcquisition,
+    public DelegatedTokenAcquisitionTokenCredential(ITokenAcquisition tokenAcquisition,
         IConfiguration configuration)
     {
         _tokenAcquisition = tokenAcquisition;
