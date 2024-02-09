@@ -1,6 +1,6 @@
 ![.NET](https://github.com/damienbod/AspNetCoreAzureAdAzureStorage/workflows/.NET/badge.svg)
 
-# ASP.NET Core using Azure Blob Storage 
+# ASP.NET Core using Azure Blob storage 
 
 Secure upload and secure download. Users are authenticated using Microsoft Entra ID. The blob storage containers use Azure security groups to control the access. The upload and the download access is separated into different groups. 
 
