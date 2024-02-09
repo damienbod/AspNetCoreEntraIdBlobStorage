@@ -1,6 +1,6 @@
-﻿using DelegatedReadAppWriteBlobStorage.FilesProvider.ViewModels;
+﻿using DelegatedEntraIDBlobStorage.FilesProvider.ViewModels;
 
-namespace DelegatedReadAppWriteBlobStorage.FilesProvider.SqlDataAccess;
+namespace DelegatedEntraIDBlobStorage.FilesProvider.SqlDataAccess;
 
 public class FileDescriptionProvider
 {

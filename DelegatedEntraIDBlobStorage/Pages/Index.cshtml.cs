@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace DelegatedReadAppWriteBlobStorage.Pages;
+namespace DelegatedEntraIDBlobStorage.Pages;
 
 public class IndexModel : PageModel
 {

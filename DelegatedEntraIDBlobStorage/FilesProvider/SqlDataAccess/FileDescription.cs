@@ -1,4 +1,4 @@
-﻿namespace DelegatedReadAppWriteBlobStorage.FilesProvider.SqlDataAccess;
+﻿namespace DelegatedEntraIDBlobStorage.FilesProvider.SqlDataAccess;
 
 public class FileDescription
 {

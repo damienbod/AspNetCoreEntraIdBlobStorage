@@ -1,12 +1,12 @@
-using DelegatedReadAppWriteBlobStorage.FilesProvider.AzureStorageAccess;
-using DelegatedReadAppWriteBlobStorage.FilesProvider.SqlDataAccess;
-using DelegatedReadAppWriteBlobStorage.FilesProvider.ViewModels;
+using DelegatedEntraIDBlobStorage.FilesProvider.AzureStorageAccess;
+using DelegatedEntraIDBlobStorage.FilesProvider.SqlDataAccess;
+using DelegatedEntraIDBlobStorage.FilesProvider.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Identity.Web;
 
-namespace DelegatedReadAppWriteBlobStorage.Pages;
+namespace DelegatedEntraIDBlobStorage.Pages;
 
 [Authorize(Policy = "blob-one-read-policy")]
 [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]

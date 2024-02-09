@@ -1,5 +1,5 @@
-using DelegatedReadAppWriteBlobStorage.FilesProvider.AzureStorageAccess;
-using DelegatedReadAppWriteBlobStorage.FilesProvider.SqlDataAccess;
+using DelegatedEntraIDBlobStorage.FilesProvider.AzureStorageAccess;
+using DelegatedEntraIDBlobStorage.FilesProvider.SqlDataAccess;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;

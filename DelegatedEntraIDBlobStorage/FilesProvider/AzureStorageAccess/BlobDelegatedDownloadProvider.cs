@@ -2,7 +2,7 @@
 using Azure.Storage.Blobs.Models;
 using Microsoft.Identity.Web;
 
-namespace DelegatedReadAppWriteBlobStorage.FilesProvider.AzureStorageAccess;
+namespace DelegatedEntraIDBlobStorage.FilesProvider.AzureStorageAccess;
 
 public class BlobDelegatedDownloadProvider
 {

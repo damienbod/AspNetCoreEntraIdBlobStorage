@@ -1,4 +1,4 @@
-﻿namespace DelegatedReadAppWriteBlobStorage.FilesProvider.ViewModels;
+﻿namespace DelegatedEntraIDBlobStorage.FilesProvider.ViewModels;
 
 public class FileDescriptionUpload
 {
