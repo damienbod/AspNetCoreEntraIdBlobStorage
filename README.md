@@ -1,16 +1,17 @@
 ![.NET](https://github.com/damienbod/AspNetCoreAzureAdAzureStorage/workflows/.NET/badge.svg)
 
-# ASP.NET Core Azure Storage Secure Files
+# ASP.NET Core Azure Blob Storage Secure upload, download
 
-Assign RBAC for user with role **Storage Blob Data Contributor** and your resource.
+Assign RBAC for user/group/sp with role **Storage Blob Data Contributor** or **Storage Blob Data Reader** and your resource.
 
 ## Blogs
 
-- [Secure ME-ID User File Upload with ME-ID Storage and ASP.NET Core](https://damienbod.com/2021/02/08/secure-azure-ad-user-account-file-upload-with-azure-ad-storage-and-asp-net-core)
-- [Using ME-ID groups authorization in ASP.NET Core for an Azure Blob Storage](https://damienbod.com/2021/03/01/using-azure-ad-groups-authorization-in-asp-net-core-for-an-azure-blob-storage)
+coming soon
 
 ### Old
 
+- [Secure ME-ID User File Upload with ME-ID Storage and ASP.NET Core](https://damienbod.com/2021/02/08/secure-azure-ad-user-account-file-upload-with-azure-ad-storage-and-asp-net-core)
+- [Using ME-ID groups authorization in ASP.NET Core for an Azure Blob Storage](https://damienbod.com/2021/03/01/using-azure-ad-groups-authorization-in-asp-net-core-for-an-azure-blob-storage)
 - [Adding ASP.NET Core authorization for an Azure Blob Storage and ME-ID users using role assignments](https://damienbod.com/2021/02/16/adding-asp-net-core-authorization-for-an-azure-blob-storage-and-azure-ad-users-using-role-assignments)
 
 ## History
