@@ -1,6 +1,8 @@
 ![.NET](https://github.com/damienbod/AspNetCoreAzureAdAzureStorage/workflows/.NET/badge.svg)
 
-# ASP.NET Core Azure Blob Storage Secure upload, download
+# ASP.NET Core using Azure Blob Storage 
+
+Secure upload, download
 
 ![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams.png)
 
