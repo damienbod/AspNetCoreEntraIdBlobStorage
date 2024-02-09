@@ -19,8 +19,9 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 var env = builder.Environment;
 
-services.AddScoped<BlobDelegatedUploadProvider>();
+services.AddScoped<BlobApplicationUploadProvider>();
 services.AddScoped<BlobDelegatedDownloadProvider>();
+services.AddSingleton<ClientSecretCredentialProvider>();
 
 services.AddTransient<DelegatedTokenAcquisitionTokenCredential>();
 

@@ -1,22 +1,20 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Microsoft.Identity.Web;
 
 namespace DelegatedReadAppWriteBlobStorage.FilesProvider.AzureStorageAccess;
 
-public class BlobDelegatedUploadProvider
+public class BlobApplicationUploadProvider
 {
-    private readonly DelegatedTokenAcquisitionTokenCredential _tokenAcquisitionTokenCredential;
     private readonly IConfiguration _configuration;
+    private readonly ClientSecretCredentialProvider _clientSecretCredentialProvider;
 
-    public BlobDelegatedUploadProvider(DelegatedTokenAcquisitionTokenCredential tokenAcquisitionTokenCredential,
+    public BlobApplicationUploadProvider(ClientSecretCredentialProvider clientSecretCredentialProvider, 
         IConfiguration configuration)
     {
-        _tokenAcquisitionTokenCredential = tokenAcquisitionTokenCredential;
         _configuration = configuration;
+        _clientSecretCredentialProvider = clientSecretCredentialProvider;
     }
 
-    [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
     public async Task<string> AddNewFile(BlobFileUploadModel blobFileUpload, IFormFile file)
     {
         try
@@ -27,16 +25,6 @@ public class BlobDelegatedUploadProvider
         {
             throw new ApplicationException($"Exception {e}");
         }
-    }
-
-    [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
-    public async Task<Azure.Response<BlobDownloadInfo>> DownloadFile(string fileName)
-    {
-        var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
-        var fileFullName = $"{storage}/{fileName}";
-        var blobUri = new Uri(fileFullName);
-        var blobClient = new BlobClient(blobUri, _tokenAcquisitionTokenCredential);
-        return await blobClient.DownloadAsync();
     }
 
     private async Task<string> PersistFileToAzureStorage(
@@ -57,7 +45,7 @@ public class BlobDelegatedUploadProvider
             }
         };
 
-        var blobClient = new BlobClient(blobUri, _tokenAcquisitionTokenCredential);
+        var blobClient = new BlobClient(blobUri, _clientSecretCredentialProvider.GetClientSecretCredential());
 
         var inputStream = formFile.OpenReadStream();
         await blobClient.UploadAsync(inputStream, blobUploadOptions, cancellationToken);

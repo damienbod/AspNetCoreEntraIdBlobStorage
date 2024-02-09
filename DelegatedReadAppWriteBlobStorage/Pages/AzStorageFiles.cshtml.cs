@@ -11,13 +11,13 @@ namespace DelegatedReadAppWriteBlobStorage.Pages;
 [Authorize(Policy = "blob-two-write-policy")]
 public class AzStorageFilesModel : PageModel
 {
-    private readonly BlobDelegatedUploadProvider _blobUploadProvider;
+    private readonly BlobApplicationUploadProvider _blobUploadProvider;
     private readonly FileDescriptionProvider _fileDescriptionProvider;
 
     [BindProperty]
     public FileDescriptionUpload FileDescriptionShort { get; set; } = new FileDescriptionUpload();
 
-    public AzStorageFilesModel(BlobDelegatedUploadProvider blobUploadProvider,
+    public AzStorageFilesModel(BlobApplicationUploadProvider blobUploadProvider,
         FileDescriptionProvider fileDescriptionProvider)
     {
         _blobUploadProvider = blobUploadProvider;
