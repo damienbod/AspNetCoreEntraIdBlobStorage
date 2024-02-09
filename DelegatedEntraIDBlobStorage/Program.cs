@@ -41,11 +41,11 @@ services.AddAuthorization(options =>
 {
     options.AddPolicy("blob-one-read-policy", policyBlobOneRead =>
     {
-        policyBlobOneRead.RequireClaim("roles", ["blobreadrole", "blobwriterole"]);
+        policyBlobOneRead.RequireClaim("roles", ["blobonereadrole", "blobonewriterole"]);
     });
     options.AddPolicy("blob-one-write-policy", policyBlobOneRead =>
     {
-        policyBlobOneRead.RequireClaim("roles", ["blobwriterole"]);
+        policyBlobOneRead.RequireClaim("roles", ["blobonewriterole"]);
     });
 });
 

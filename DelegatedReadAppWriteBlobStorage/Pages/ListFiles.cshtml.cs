@@ -8,7 +8,7 @@ using Microsoft.Identity.Web;
 
 namespace DelegatedReadAppWriteBlobStorage.Pages;
 
-[Authorize(Policy = "blob-one-read-policy")]
+[Authorize(Policy = "blob-two-read-policy")]
 [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
 public class ListFilesModel : PageModel
 {

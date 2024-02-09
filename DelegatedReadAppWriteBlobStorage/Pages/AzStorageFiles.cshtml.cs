@@ -4,13 +4,11 @@ using DelegatedReadAppWriteBlobStorage.FilesProvider.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Identity.Web;
 using System.Net.Http.Headers;
 
 namespace DelegatedReadAppWriteBlobStorage.Pages;
 
-[Authorize(Policy = "blob-one-write-policy")]
-[AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
+[Authorize(Policy = "blob-two-write-policy")]
 public class AzStorageFilesModel : PageModel
 {
     private readonly BlobDelegatedUploadProvider _blobUploadProvider;

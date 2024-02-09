@@ -39,13 +39,13 @@ services.AddMicrosoftIdentityWebAppAuthentication(configuration)
 
 services.AddAuthorization(options =>
 {
-    options.AddPolicy("blob-one-read-policy", policyBlobOneRead =>
+    options.AddPolicy("blob-two-read-policy", policyBlobOneRead =>
     {
-        policyBlobOneRead.RequireClaim("roles", ["blobreadrole", "blobwriterole"]);
+        policyBlobOneRead.RequireClaim("roles", ["blobtworeadrole", "blobtwowriterole"]);
     });
-    options.AddPolicy("blob-one-write-policy", policyBlobOneRead =>
+    options.AddPolicy("blob-two-write-policy", policyBlobOneRead =>
     {
-        policyBlobOneRead.RequireClaim("roles", ["blobwriterole"]);
+        policyBlobOneRead.RequireClaim("roles", ["blobtwowriterole"]);
     });
 });
 
