@@ -1,5 +1,5 @@
-using DelegatedEntraIDBlobStorage.FilesProvider.AzureStorageAccess;
-using DelegatedEntraIDBlobStorage.FilesProvider.SqlDataAccess;
+using DelegatedReadAppWriteBlobStorage.FilesProvider.AzureStorageAccess;
+using DelegatedReadAppWriteBlobStorage.FilesProvider.SqlDataAccess;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -19,8 +19,9 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 var env = builder.Environment;
 
-services.AddScoped<BlobDelegatedUploadProvider>();
+services.AddScoped<BlobApplicationUploadProvider>();
 services.AddScoped<BlobDelegatedDownloadProvider>();
+services.AddSingleton<ClientSecretCredentialProvider>();
 
 services.AddTransient<DelegatedTokenAcquisitionTokenCredential>();
 
@@ -39,13 +40,13 @@ services.AddMicrosoftIdentityWebAppAuthentication(configuration)
 
 services.AddAuthorization(options =>
 {
-    options.AddPolicy("blob-one-read-policy", policyBlobOneRead =>
+    options.AddPolicy("blob-two-read-policy", policyBlobOneRead =>
     {
-        policyBlobOneRead.RequireClaim("roles", ["blobonereadrole", "blobonewriterole"]);
+        policyBlobOneRead.RequireClaim("roles", ["blobtworeadrole", "blobtwowriterole"]);
     });
-    options.AddPolicy("blob-one-write-policy", policyBlobOneRead =>
+    options.AddPolicy("blob-two-write-policy", policyBlobOneRead =>
     {
-        policyBlobOneRead.RequireClaim("roles", ["blobonewriterole"]);
+        policyBlobOneRead.RequireClaim("roles", ["blobtwowriterole"]);
     });
 });
 
