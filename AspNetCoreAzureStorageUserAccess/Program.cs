@@ -33,7 +33,13 @@ services.AddMicrosoftIdentityWebAppAuthentication(configuration)
     .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
     .AddInMemoryTokenCaches();
 
-services.AddAuthorization();
+services.AddAuthorization(options =>
+{
+    options.AddPolicy("blob-one-read-policy", policyBlobOneRead =>
+    {
+        policyBlobOneRead.RequireClaim("role", "bloboneread blobonewrite");
+    });
+});
 
 services.AddRazorPages().AddMvcOptions(options =>
 {

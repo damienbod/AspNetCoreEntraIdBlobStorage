@@ -8,7 +8,7 @@ using Microsoft.Identity.Web;
 
 namespace AspNetCoreAzureStorageUserAccess.Pages;
 
-[Authorize(Policy = "StorageBlobDataReaderPolicy")]
+[Authorize(Policy = "blob-one-read-policy")]
 [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
 public class ListFilesModel : PageModel
 {
