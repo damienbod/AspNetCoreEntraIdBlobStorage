@@ -19,10 +19,10 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 var env = builder.Environment;
 
-services.AddScoped<BlobUploadProvider>();
-services.AddScoped<BlobDownloadUserAadProvider>();
+services.AddScoped<BlobDelegatedUploadProvider>();
+services.AddScoped<BlobDelegatedDownloadProvider>();
 
-services.AddTransient<LocalTokenAcquisitionTokenCredential>();
+services.AddTransient<DelegatedTokenAcquisitionTokenCredential>();
 
 services.AddDbContext<FileContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));

@@ -13,13 +13,13 @@ namespace AspNetCoreAzureStorageUserAccess.Pages;
 [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
 public class AzStorageFilesModel : PageModel
 {
-    private readonly BlobUploadProvider _blobUploadProvider;
+    private readonly BlobDelegatedUploadProvider _blobUploadProvider;
     private readonly FileDescriptionProvider _fileDescriptionProvider;
 
     [BindProperty]
     public FileDescriptionUpload FileDescriptionShort { get; set; } = new FileDescriptionUpload();
 
-    public AzStorageFilesModel(BlobUploadProvider blobUploadProvider,
+    public AzStorageFilesModel(BlobDelegatedUploadProvider blobUploadProvider,
         FileDescriptionProvider fileDescriptionProvider)
     {
         _blobUploadProvider = blobUploadProvider;

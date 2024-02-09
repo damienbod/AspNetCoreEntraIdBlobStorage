@@ -12,7 +12,7 @@ namespace AspNetCoreAzureStorageUserAccess.Pages;
 [AuthorizeForScopes(Scopes = ["https://storage.azure.com/user_impersonation"])]
 public class ListFilesModel : PageModel
 {
-    private readonly BlobDownloadUserAadProvider _blobDownloadUserAadProvider;
+    private readonly BlobDelegatedDownloadProvider _blobDownloadUserAadProvider;
     private readonly FileDescriptionProvider _fileDescriptionProvider;
     private readonly ITokenAcquisition _tokenAcquisition;
 
@@ -24,7 +24,7 @@ public class ListFilesModel : PageModel
     public string? FileName { get; set; }
 
     public ListFilesModel(
-        BlobDownloadUserAadProvider blobDownloadUserAadProvider,
+        BlobDelegatedDownloadProvider blobDownloadUserAadProvider,
         ITokenAcquisition tokenAcquisition,
         FileDescriptionProvider fileDescriptionProvider)
     {
