@@ -46,5 +46,4 @@ public class ListFilesModel : PageModel
 
         return File(file.Value.Content, file.Value.ContentType, fileName);
     }
-
 }
