@@ -4,12 +4,12 @@ using Microsoft.Identity.Web;
 
 namespace AspNetCoreAzureStorageUserAccess.FilesProvider.AzureStorageAccess;
 
-public class AzureBlobStorageProvider
+public class BlobUploadProvider
 {
     private readonly LocalTokenAcquisitionTokenCredential _tokenAcquisitionTokenCredential;
     private readonly IConfiguration _configuration;
 
-    public AzureBlobStorageProvider(LocalTokenAcquisitionTokenCredential tokenAcquisitionTokenCredential,
+    public BlobUploadProvider(LocalTokenAcquisitionTokenCredential tokenAcquisitionTokenCredential,
         IConfiguration configuration)
     {
         _tokenAcquisitionTokenCredential = tokenAcquisitionTokenCredential;

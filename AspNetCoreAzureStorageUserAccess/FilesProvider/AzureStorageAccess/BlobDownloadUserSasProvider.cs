@@ -6,12 +6,12 @@ using Microsoft.Identity.Web;
 
 namespace AspNetCoreAzureStorageUserAccess.FilesProvider.AzureStorageAccess;
 
-public class BlobDownloadUserSas
+public class BlobDownloadUserSasProvider
 {
     private readonly LocalTokenAcquisitionTokenCredential _tokenAcquisitionTokenCredential;
     private readonly IConfiguration _configuration;
 
-    public BlobDownloadUserSas(LocalTokenAcquisitionTokenCredential tokenAcquisitionTokenCredential,
+    public BlobDownloadUserSasProvider(LocalTokenAcquisitionTokenCredential tokenAcquisitionTokenCredential,
         IConfiguration configuration)
     {
         _tokenAcquisitionTokenCredential = tokenAcquisitionTokenCredential;
@@ -61,9 +61,27 @@ public class BlobDownloadUserSas
     public async Task<Azure.Response<BlobDownloadInfo>> DownloadFile(string fileName)
     {
         var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
-        var fileFullName = $"{storage}{fileName}";
-        var blobUri = new Uri(fileFullName);
-        var blobClient = new BlobClient(blobUri, _tokenAcquisitionTokenCredential);
-        return await blobClient.DownloadAsync();
+        //var fileFullName = $"{storage}{fileName}";
+        //var blobUri = new Uri(fileFullName);
+        //var blobClient = new BlobClient(blobUri, _tokenAcquisitionTokenCredential);
+
+        var blobServiceClient = new BlobServiceClient(new Uri(storage!));
+
+        BlobClient blobClient = blobServiceClient
+                .GetBlobContainerClient(storage)
+                .GetBlobClient(fileName);
+
+        var userDelegationKey = await RequestUserDelegationKey(blobServiceClient);
+
+        if (userDelegationKey == null)
+        {
+            throw new ArgumentNullException(nameof(userDelegationKey));
+        }
+
+        var blobSASURI = CreateUserDelegationSASBlob(blobClient, userDelegationKey);
+        // Create a blob client object with SAS authorization
+        var blobClientSAS = new BlobClient(blobSASURI);
+
+        return await blobClientSAS.DownloadAsync();
     }
 }

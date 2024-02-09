@@ -19,7 +19,10 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 var env = builder.Environment;
 
-services.AddScoped<AzureBlobStorageProvider>();
+services.AddScoped<BlobUploadProvider>();
+services.AddScoped<BlobDownloadUserAadProvider>();
+services.AddScoped<BlobDownloadUserSasProvider>();
+
 services.AddTransient<LocalTokenAcquisitionTokenCredential>();
 
 services.AddDbContext<FileContext>(options =>
