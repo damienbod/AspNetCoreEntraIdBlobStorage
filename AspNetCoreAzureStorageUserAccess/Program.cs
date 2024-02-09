@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +39,7 @@ services.AddAuthorization(options =>
 {
     options.AddPolicy("blob-one-read-policy", policyBlobOneRead =>
     {
-        policyBlobOneRead.RequireClaim("role", "bloboneread blobonewrite");
+        policyBlobOneRead.RequireClaim("roles", ["blobreadrole", "blobwriterole"]);
     });
 });
 
@@ -50,6 +52,9 @@ services.AddRazorPages().AddMvcOptions(options =>
 }).AddMicrosoftIdentityUI();
 
 var app = builder.Build();
+
+IdentityModelEventSource.ShowPII = true;
+JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 if (env.IsDevelopment())
 {
