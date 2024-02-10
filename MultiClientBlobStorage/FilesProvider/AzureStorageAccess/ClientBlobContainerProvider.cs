@@ -1,6 +1,8 @@
 ﻿using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MultiClientBlobStorage.FilesProvider.AzureStorageAccess;
 
@@ -40,7 +42,8 @@ public class ClientBlobContainerProvider
     {
         try
         {
-            string containerName = $"blob-{Guid.NewGuid()}".ToLower();
+            var formatted = RemoveSpecialCharacters(name);
+            string containerName = $"blob-{formatted.Trim()}-{Guid.NewGuid()}".ToLower();
             var storage = _configuration.GetValue<string>("AzureStorage:Storage");
             var credential = _clientSecretCredentialProvider.GetClientSecretCredential();
 
@@ -73,5 +76,19 @@ public class ClientBlobContainerProvider
             Console.WriteLine(e.Message);
             throw;
         }
+    }
+
+    private string RemoveSpecialCharacters(string str)
+    {
+        var sb = new StringBuilder();
+        foreach (char c in str)
+        {
+            if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == '_')
+            {
+                sb.Append(c);
+            }
+        }
+
+        return sb.ToString();
     }
 }
