@@ -22,7 +22,6 @@ public class ClientBlobContainerProvider
     {
         try
         {
-
             // 1. Create new security group for client users
             // 2. Create new Blob container
             await CreateContainer(clientName);
