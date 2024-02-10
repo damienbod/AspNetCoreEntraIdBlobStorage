@@ -19,7 +19,6 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 var env = builder.Environment;
 
-services.AddScoped<BlobApplicationUploadProvider>();
 services.AddSingleton<ClientSecretCredentialProvider>();
 services.AddSingleton<ClientBlobContainerProvider>();
 

@@ -41,7 +41,7 @@ public class ClientBlobContainerProvider
         try
         {
             string containerName = $"container-{Guid.NewGuid()}".ToLower();
-            var storage = _configuration.GetValue<string>("AzureStorage:StorageAndContainerName");
+            var storage = _configuration.GetValue<string>("AzureStorage:Storage");
             var credential = _clientSecretCredentialProvider.GetClientSecretCredential();
 
             if(storage != null && credential != null)
@@ -53,16 +53,16 @@ public class ClientBlobContainerProvider
                 };
 
                 // Create the root container or handle the exception if it already exists
-                BlobContainerClient container = blobServiceClient.CreateBlobContainer(containerName, 
+                var blobContainerClient = blobServiceClient.CreateBlobContainer(containerName, 
                     PublicAccessType.BlobContainer,
                     metadata);
 
-                if (container.Exists())
+                if (blobContainerClient.Value.Exists())
                 {
-                    Console.WriteLine($"Created container: {name} {container.Name}");
+                    Console.WriteLine($"Created container: {name} {blobContainerClient.Value.Name}");
                 }
 
-                return container;
+                return blobContainerClient;
             }
 
             throw new Exception($"Could not create container: {name}");
