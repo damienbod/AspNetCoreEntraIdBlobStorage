@@ -23,7 +23,7 @@ public class ClientBlobContainerProvider
 
             // 1. Create new security group for client users
             // 2. Create new Blob container
-            CreateContainer(clientName);
+            await CreateContainer(clientName);
             // 3. RBAC security group Blob data read
             // NOTE blob write is configured on root 
 
@@ -36,11 +36,11 @@ public class ClientBlobContainerProvider
         }
     }
 
-    private BlobContainerClient CreateContainer(string name)
+    private async Task<BlobContainerClient> CreateContainer(string name)
     {
         try
         {
-            string containerName = $"container-{Guid.NewGuid()}".ToLower();
+            string containerName = $"blob-{Guid.NewGuid()}".ToLower();
             var storage = _configuration.GetValue<string>("AzureStorage:Storage");
             var credential = _clientSecretCredentialProvider.GetClientSecretCredential();
 
@@ -53,8 +53,8 @@ public class ClientBlobContainerProvider
                 };
 
                 // Create the root container or handle the exception if it already exists
-                var blobContainerClient = blobServiceClient.CreateBlobContainer(containerName, 
-                    PublicAccessType.BlobContainer,
+                var blobContainerClient = await blobServiceClient.CreateBlobContainerAsync(containerName, 
+                    PublicAccessType.None,
                     metadata);
 
                 if (blobContainerClient.Value.Exists())
