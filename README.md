@@ -10,7 +10,7 @@ Assign RBAC for user/group/sp with role **Storage Blob Data Contributor** or **S
 
 ## Blogs
 
-coming soon
+[Using Blob storage from ASP.NET Core with Entra ID authentication](https://damienbod.com)
 
 ### Old
 
