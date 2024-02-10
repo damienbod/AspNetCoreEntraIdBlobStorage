@@ -20,10 +20,7 @@ var configuration = builder.Configuration;
 var env = builder.Environment;
 
 services.AddScoped<BlobApplicationUploadProvider>();
-services.AddScoped<BlobDelegatedDownloadProvider>();
 services.AddSingleton<ClientSecretCredentialProvider>();
-
-services.AddTransient<DelegatedTokenAcquisitionTokenCredential>();
 
 services.AddDbContext<FileContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
