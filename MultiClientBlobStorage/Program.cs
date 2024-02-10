@@ -21,6 +21,7 @@ var env = builder.Environment;
 
 services.AddScoped<BlobApplicationUploadProvider>();
 services.AddSingleton<ClientSecretCredentialProvider>();
+services.AddSingleton<ClientBlobContainerProvider>();
 
 services.AddDbContext<FileContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));

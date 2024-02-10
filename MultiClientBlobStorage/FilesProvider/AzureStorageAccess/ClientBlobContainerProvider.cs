@@ -23,7 +23,8 @@ public class ClientBlobContainerProvider
             // 3. RBAC security group Blob data read
             // NOTE blob write is configured on root 
 
-            return await PersistFileToAzureStorage(clientName);
+            return string.Empty;
+            //return await PersistFileToAzureStorage(clientName);
         }
         catch (Exception e)
         {

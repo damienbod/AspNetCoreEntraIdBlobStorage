@@ -8,14 +8,14 @@ namespace MultiClientBlobStorage.Pages;
 [Authorize(Policy = "blob-two-write-policy")]
 public class CreateClientModel : PageModel
 {
-    private readonly BlobApplicationUploadProvider _blobUploadProvider;
+    private readonly ClientBlobContainerProvider _clientBlobContainerProvider;
 
     [BindProperty]
     public string ClientName { get; set; } = string.Empty;
 
-    public CreateClientModel(BlobApplicationUploadProvider blobUploadProvider)
+    public CreateClientModel(ClientBlobContainerProvider clientBlobContainerProvider)
     {
-        _blobUploadProvider = blobUploadProvider;
+        _clientBlobContainerProvider = clientBlobContainerProvider;
     }
 
     public void OnGet()
@@ -26,9 +26,8 @@ public class CreateClientModel : PageModel
     {
         if (ModelState.IsValid)
         {
-           
+            await _clientBlobContainerProvider.CreateClient(ClientName);  
         }
-
 
         return Page();
     }

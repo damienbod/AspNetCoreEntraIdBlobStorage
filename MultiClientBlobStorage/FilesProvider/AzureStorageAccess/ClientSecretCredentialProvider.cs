@@ -15,8 +15,8 @@ public class ClientSecretCredentialProvider
     {
         // Values from app registration
         var tenantId = _configuration.GetValue<string>("AzureAd:TenantId");
-        var clientId = _configuration.GetValue<string>("ApplicationClient:ClientId");
-        var clientSecret = _configuration.GetValue<string>("ApplicationClient:ClientSecret");
+        var clientId = _configuration.GetValue<string>("AppAdminBlobStorageClient:ClientId");
+        var clientSecret = _configuration.GetValue<string>("AppAdminBlobStorageClient:ClientSecret");
 
         var options = new ClientSecretCredentialOptions
         {
