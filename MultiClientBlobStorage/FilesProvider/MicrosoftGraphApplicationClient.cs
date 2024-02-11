@@ -37,7 +37,7 @@ public class MicrosoftGraphApplicationClient
         // the resource group name
         var resourceGroupName = "blob-security-rg";
 
-        var url = $"https://management.azure.com/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/providers/Microsoft.Authorization/roleAssignments/{roleId}?api-version=2018-01-01-preview";
+        var url = $"https://management.azure.com/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/providers/Microsoft.Authorization/roleAssignments/{roleId}?api-version=2022-03-01";
         
         var client = _clientFactory.CreateClient();
         var accessToken = await _azureMgmtClientCredentialService.GetAccessToken();
