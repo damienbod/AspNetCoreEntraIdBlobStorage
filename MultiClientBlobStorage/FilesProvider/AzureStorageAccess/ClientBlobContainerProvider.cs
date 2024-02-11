@@ -2,7 +2,6 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace MultiClientBlobStorage.FilesProvider.AzureStorageAccess;
 
@@ -24,12 +23,15 @@ public class ClientBlobContainerProvider
         {
             // 1. Create new security group for client users
             // 2. Create new Blob container
-            await CreateContainer(clientName);
+            var blobContainer = await CreateContainer(clientName);
             // 3. RBAC security group Blob data read
+            // Storage Blob Data Reader
+            // ID: 2a2b9908-6ea1-4ae2-8e65-a410df84e7d1
+            // Application.ReadWrite.All AppRoleAssignment.ReadWrite.All
+            // https://cloud.google.com/bigquery/docs/omni-azure-create-connection#microsoft-rest-api
             // NOTE blob write is configured on root 
 
-            return string.Empty;
-            //return await PersistFileToAzureStorage(clientName);
+            return blobContainer.Name;
         }
         catch (Exception e)
         {
@@ -49,6 +51,7 @@ public class ClientBlobContainerProvider
             if(storage != null && credential != null)
             {
                 var blobServiceClient = new BlobServiceClient(new Uri(storage), credential);
+
                 var metadata = new Dictionary<string, string?>
                 {
                     { "name", name },
@@ -64,7 +67,7 @@ public class ClientBlobContainerProvider
                     Console.WriteLine($"Created container: {name} {blobContainerClient.Value.Name}");
                 }
 
-                return blobContainerClient;
+                return blobContainerClient.Value;
             }
 
             throw new Exception($"Could not create container: {name}");

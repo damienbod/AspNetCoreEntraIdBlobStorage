@@ -7,6 +7,7 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Logging;
+using GraphClientCrendentials;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,9 @@ var env = builder.Environment;
 
 services.AddSingleton<ClientSecretCredentialProvider>();
 services.AddSingleton<ClientBlobContainerProvider>();
+
+services.AddSingleton<GraphApplicationClientService>();
+services.AddScoped<AadGraphSdkApplicationClient>();
 
 services.AddDbContext<FileContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
