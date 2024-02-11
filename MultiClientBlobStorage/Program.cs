@@ -24,7 +24,7 @@ services.AddSingleton<ClientSecretCredentialProvider>();
 services.AddSingleton<ClientBlobContainerProvider>();
 
 services.AddSingleton<GraphApplicationClientService>();
-services.AddScoped<AadGraphSdkApplicationClient>();
+services.AddScoped<MicrosoftGraphApplicationClient>();
 
 services.AddDbContext<FileContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));

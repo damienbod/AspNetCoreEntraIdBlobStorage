@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using GraphClientCrendentials;
 using System.Text;
 
 namespace MultiClientBlobStorage.FilesProvider.AzureStorageAccess;
@@ -9,12 +10,15 @@ public class ClientBlobContainerProvider
 {
     private readonly IConfiguration _configuration;
     private readonly ClientSecretCredentialProvider _clientSecretCredentialProvider;
+    private readonly MicrosoftGraphApplicationClient _microsoftGraphApplicationClient;
 
-    public ClientBlobContainerProvider(ClientSecretCredentialProvider clientSecretCredentialProvider, 
+    public ClientBlobContainerProvider(ClientSecretCredentialProvider clientSecretCredentialProvider,
+        MicrosoftGraphApplicationClient microsoftGraphApplicationClient,
         IConfiguration configuration)
     {
         _configuration = configuration;
         _clientSecretCredentialProvider = clientSecretCredentialProvider;
+        _microsoftGraphApplicationClient = microsoftGraphApplicationClient;
     }
 
     public async Task<string> CreateClient(string clientName)
@@ -25,10 +29,9 @@ public class ClientBlobContainerProvider
             // 2. Create new Blob container
             var blobContainer = await CreateContainer(clientName);
             // 3. RBAC security group Blob data read
-            // Storage Blob Data Reader
-            // ID: 2a2b9908-6ea1-4ae2-8e65-a410df84e7d1
-            // Application.ReadWrite.All AppRoleAssignment.ReadWrite.All
-            // https://cloud.google.com/bigquery/docs/omni-azure-create-connection#microsoft-rest-api
+            await _microsoftGraphApplicationClient
+                .StorageBlobDataReaderRoleAssignment("TODO", "TODO");
+
             // NOTE blob write is configured on root 
 
             return blobContainer.Name;
