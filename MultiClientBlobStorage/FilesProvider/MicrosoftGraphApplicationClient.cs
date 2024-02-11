@@ -1,6 +1,7 @@
 ﻿using Elfie.Serialization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Identity.Client.Extensions.Msal;
+using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Runtime.Intrinsics.X86;
@@ -27,7 +28,7 @@ public class MicrosoftGraphApplicationClient
     /// Application.ReadWrite.All AppRoleAssignment.ReadWrite.All
     /// https://cloud.google.com/bigquery/docs/omni-azure-create-connection#microsoft-rest-api
     /// </summary>
-    public async Task StorageBlobDataReaderRoleAssignment(string groupId, string storageAccountName)
+    public async Task StorageBlobDataReaderRoleAssignment(string groupId, string storageAccountName, string blobContainerName)
     {
         // The role ID: Storage Blob Data Reader
         var roleId = "2a2b9908-6ea1-4ae2-8e65-a410df84e7d1";
@@ -44,17 +45,22 @@ public class MicrosoftGraphApplicationClient
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-        var roleDefinitionId = $"/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/providers/Microsoft.Authorization/roleDefinitions/{roleId}";
-        var properties = new Properties
+        
+        var roleDefinitionId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobServices/default/containers/{blobContainerName}/providers/Microsoft.Authorization/roleDefinitions/{roleId}";
+        var PayloadRoleAssignment = new PayloadRoleAssignment
         {
-            RoleDefinitionId = roleDefinitionId,
-            PrincipalId = servicePrincipalId
+            properties = new properties
+            {
+                roleDefinitionId = roleDefinitionId,
+                principalId = servicePrincipalId
+            }
         };
 
-        var test = System.Text.Json.JsonSerializer.Serialize<Properties>(properties);
+        // view containers
+        //var getRe = $"https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobServices/default/containers?api-version=2023-01-01";
+        //var response = await client.GetAsync(getRe);
 
-        var response = await client.PutAsJsonAsync<Properties>(url, properties);
+        var response = await client.PutAsJsonAsync<PayloadRoleAssignment>(url, PayloadRoleAssignment);
         if (response.IsSuccessStatusCode)
         {
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -64,16 +70,21 @@ public class MicrosoftGraphApplicationClient
         throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
     }
 
+    public class PayloadRoleAssignment
+    {
+        public properties properties { get; set; } = new();
+    }
+
     /// <summary>
     /// "properties": {
     ///    "roleDefinitionId": "subscriptions/SUBSCRIPTION_ID/resourcegroups/RESOURCE_GROUP_NAME/providers/Microsoft.Storage/storageAccounts/STORAGE_ACCOUNT_NAME/providers/Microsoft.Authorization/roleDefinitions/ROLE_ID",
     ///    "principalId": "SP_ID"
     ///}
     /// </summary>
-    public class Properties
+    public class properties
     {
-        public string RoleDefinitionId { get; set; } = string.Empty;
-        public string PrincipalId { get; set; } = string.Empty;
+        public string roleDefinitionId { get; set; } = string.Empty;
+        public string principalId { get; set; } = string.Empty;
         
     }
 }
