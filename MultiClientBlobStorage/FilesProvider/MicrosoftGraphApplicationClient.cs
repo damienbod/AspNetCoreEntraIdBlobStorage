@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Runtime.Intrinsics.X86;
 
-namespace GraphClientCrendentials;
+namespace AzureMgmtClientCrendentials;
 
 public class MicrosoftGraphApplicationClient
 {
@@ -31,11 +31,11 @@ public class MicrosoftGraphApplicationClient
     {
         // The role ID: Storage Blob Data Reader
         var roleId = "2a2b9908-6ea1-4ae2-8e65-a410df84e7d1";
-        var subscriptionId = "TODO";
+        var subscriptionId = "a2029853-0102-49be-931a-3edf53744c56";
         // the service principal ID
         var servicePrincipalId = groupId;
         // the resource group name
-        var resourceGroupName = "TODO";
+        var resourceGroupName = "blob-security-rg";
 
         var url = $"https://management.azure.com/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/providers/Microsoft.Authorization/roleAssignments/{roleId}?api-version=2018-01-01-preview";
         

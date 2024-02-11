@@ -1,7 +1,7 @@
 ﻿using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using GraphClientCrendentials;
+using AzureMgmtClientCrendentials;
 using System.Text;
 
 namespace MultiClientBlobStorage.FilesProvider.AzureStorageAccess;

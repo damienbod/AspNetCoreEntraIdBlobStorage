@@ -1,6 +1,6 @@
 ﻿using Microsoft.Identity.Client;
 
-namespace GraphClientCrendentials;
+namespace AzureMgmtClientCrendentials;
 
 public class AzureMgmtClientCredentialService
 {
