@@ -17,7 +17,7 @@ public class ListFilesModel : PageModel
     private readonly ITokenAcquisition _tokenAcquisition;
 
     [BindProperty]
-    public IEnumerable<FileDescriptionDto> FileDescriptions { get; set; } 
+    public IEnumerable<FileDescriptionDto> FileDescriptions { get; set; }
         = new List<FileDescriptionDto>();
 
     [BindProperty]

@@ -8,7 +8,7 @@ public class AzureMgmtClientService
     private readonly IHttpClientFactory _clientFactory;
     private readonly IConfiguration _configuration;
 
-    public AzureMgmtClientService(AzureMgmtClientCredentialService azureMgmtClientCredentialService, 
+    public AzureMgmtClientService(AzureMgmtClientCredentialService azureMgmtClientCredentialService,
         IHttpClientFactory clientFactory,
         IConfiguration configuration)
     {
@@ -32,13 +32,13 @@ public class AzureMgmtClientService
         var resourceGroupName = _configuration["AzureMgmt:ResourceGroupName"];
 
         var url = $"https://management.azure.com/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/providers/Microsoft.Authorization/roleAssignments/{roleId}?api-version=2022-04-01";
-        
+
         var client = _clientFactory.CreateClient();
         var accessToken = await _azureMgmtClientCredentialService.GetAccessToken();
 
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        
+
         var roleDefinitionId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobServices/default/containers/{blobContainerName}/providers/Microsoft.Authorization/roleDefinitions/{roleId}";
         var PayloadRoleAssignment = new PayloadRoleAssignment
         {
@@ -78,6 +78,6 @@ public class AzureMgmtClientService
     {
         public string roleDefinitionId { get; set; } = string.Empty;
         public string principalId { get; set; } = string.Empty;
-        
+
     }
 }

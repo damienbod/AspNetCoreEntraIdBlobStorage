@@ -26,7 +26,7 @@ public class CreateClientModel : PageModel
     {
         if (ModelState.IsValid)
         {
-            await _clientBlobContainerProvider.CreateClient(ClientName);  
+            await _clientBlobContainerProvider.CreateClient(ClientName);
         }
 
         return Page();

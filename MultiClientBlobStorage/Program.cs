@@ -1,10 +1,10 @@
+using AzureMgmtClientCrendentials;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Logging;
-using AzureMgmtClientCrendentials;
 using MultiClientBlobStorage.Providers;
 
 var builder = WebApplication.CreateBuilder(args);
