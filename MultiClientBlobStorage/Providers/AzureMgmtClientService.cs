@@ -19,8 +19,7 @@ public class AzureMgmtClientService
 
     /// <summary>
     /// Storage Blob Data Reader: ID: 2a2b9908-6ea1-4ae2-8e65-a410df84e7d1
-    /// Application.ReadWrite.All AppRoleAssignment.ReadWrite.All
-    /// https://cloud.google.com/bigquery/docs/omni-azure-create-connection#microsoft-rest-api
+    /// Role assignment required for application in Azure on resource group
     /// </summary>
     public async Task StorageBlobDataReaderRoleAssignment(string groupId, string storageAccountName, string blobContainerName)
     {
