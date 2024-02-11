@@ -1,13 +1,11 @@
-using MultiClientBlobStorage.FilesProvider.AzureStorageAccess;
-using MultiClientBlobStorage.FilesProvider.SqlDataAccess;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Logging;
 using AzureMgmtClientCrendentials;
+using MultiClientBlobStorage.Providers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,26 +23,16 @@ services.AddSingleton<ClientBlobContainerProvider>();
 services.AddSingleton<AzureMgmtClientCredentialService>();
 services.AddSingleton<AzureMgmtClientService>();
 
-services.AddDbContext<FileContext>(options =>
-    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-services.AddTransient<FileDescriptionProvider>();
-
 services.AddHttpClient();
 services.AddOptions();
 
-string[]? initialScopes = configuration.GetValue<string>("AzureStorage:ScopeForAccessToken")?.Split(' ');
-
 services.AddMicrosoftIdentityWebAppAuthentication(configuration)
-    .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
+    .EnableTokenAcquisitionToCallDownstreamApi()
     .AddInMemoryTokenCaches();
 
 services.AddAuthorization(options =>
 {
-    options.AddPolicy("blob-two-read-policy", policyBlobOneRead =>
-    {
-        policyBlobOneRead.RequireClaim("roles", ["blobtworeadrole", "blobtwowriterole"]);
-    });
-    options.AddPolicy("blob-two-write-policy", policyBlobOneRead =>
+    options.AddPolicy("blob-admin-policy", policyBlobOneRead =>
     {
         policyBlobOneRead.RequireClaim("roles", ["blobtwowriterole"]);
     });

@@ -58,7 +58,7 @@ public class AzureMgmtClientService
         if (response.IsSuccessStatusCode)
         {
             var responseContent = await response.Content.ReadAsStringAsync();
-            var data = System.Text.Json.JsonSerializer.Deserialize<List<string>>(responseContent);
+            return;
         }
 
         throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");

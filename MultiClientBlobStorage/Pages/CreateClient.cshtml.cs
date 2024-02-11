@@ -1,11 +1,11 @@
-﻿using MultiClientBlobStorage.FilesProvider.AzureStorageAccess;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MultiClientBlobStorage.Providers;
 
 namespace MultiClientBlobStorage.Pages;
 
-[Authorize(Policy = "blob-two-write-policy")]
+[Authorize(Policy = "blob-admin-policy")]
 public class CreateClientModel : PageModel
 {
     private readonly ClientBlobContainerProvider _clientBlobContainerProvider;

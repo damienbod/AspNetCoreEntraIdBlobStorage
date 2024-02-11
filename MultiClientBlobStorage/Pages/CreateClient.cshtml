@@ -7,10 +7,10 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-@if ((await AuthorizationService.AuthorizeAsync(User, "blob-two-write-policy")).Succeeded)
+@if ((await AuthorizationService.AuthorizeAsync(User, "blob-admin-policy")).Succeeded)
 {
     <div class="card">
-        <div class="card-header">Uploaded Files</div>
+        <div class="card-header">Create Blobs</div>
         <div class="card-body">
             <form enctype="multipart/form-data" asp-page="/CreateClient" id="ajaxUploadForm" novalidate="novalidate">
 

@@ -1,6 +1,6 @@
 ﻿using Azure.Identity;
 
-namespace MultiClientBlobStorage.FilesProvider.AzureStorageAccess;
+namespace MultiClientBlobStorage.Providers;
 
 public class ClientSecretCredentialProvider
 {

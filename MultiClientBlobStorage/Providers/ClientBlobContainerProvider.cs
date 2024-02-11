@@ -4,7 +4,7 @@ using Azure.Storage.Blobs.Models;
 using AzureMgmtClientCrendentials;
 using System.Text;
 
-namespace MultiClientBlobStorage.FilesProvider.AzureStorageAccess;
+namespace MultiClientBlobStorage.Providers;
 
 public class ClientBlobContainerProvider
 {
@@ -30,7 +30,7 @@ public class ClientBlobContainerProvider
             var blobContainer = await CreateContainer(clientName);
             // 3. RBAC security group Blob data read
             var groupBlobOneRead = "efa3647e-f334-4cab-8c0e-87b042fc9d30";
-            await _microsoftGraphApplicationClient.StorageBlobDataReaderRoleAssignment(groupBlobOneRead, 
+            await _microsoftGraphApplicationClient.StorageBlobDataReaderRoleAssignment(groupBlobOneRead,
                 blobContainer.AccountName, blobContainer.Name);
 
             // NOTE blob write is configured on root 
@@ -52,7 +52,7 @@ public class ClientBlobContainerProvider
             var storage = _configuration.GetValue<string>("AzureStorage:Storage");
             var credential = _clientSecretCredentialProvider.GetClientSecretCredential();
 
-            if(storage != null && credential != null)
+            if (storage != null && credential != null)
             {
                 var blobServiceClient = new BlobServiceClient(new Uri(storage), credential);
 
@@ -62,7 +62,7 @@ public class ClientBlobContainerProvider
                 };
 
                 // Create the root container or handle the exception if it already exists
-                var blobContainerClient = await blobServiceClient.CreateBlobContainerAsync(containerName, 
+                var blobContainerClient = await blobServiceClient.CreateBlobContainerAsync(containerName,
                     PublicAccessType.None,
                     metadata);
 
@@ -89,7 +89,7 @@ public class ClientBlobContainerProvider
         var sb = new StringBuilder();
         foreach (char c in str)
         {
-            if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == '_')
+            if (c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z' || c == '.' || c == '_')
             {
                 sb.Append(c);
             }
