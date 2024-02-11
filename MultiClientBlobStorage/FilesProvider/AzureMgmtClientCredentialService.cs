@@ -18,10 +18,9 @@ public class AzureMgmtClientCredentialService
     public async Task<string> GetAccessToken()
     {
         string[] scopes = ["https://management.azure.com/.default"];
-        //string[] scopes = ["https://graph.microsoft.com/.default"];
-        var tenantId = _configuration["Graph:TenantId"];
-        var clientId = _configuration.GetValue<string>("Graph:ClientId");
-        var clientSecret = _configuration.GetValue<string>("Graph:ClientSecret");
+        var tenantId = _configuration["AzureMgmt:TenantId"];
+        var clientId = _configuration.GetValue<string>("AzureMgmt:ClientId");
+        var clientSecret = _configuration.GetValue<string>("AzureMgmt:ClientSecret");
 
         var app = ConfidentialClientApplicationBuilder.Create(clientId)
            .WithTenantId(tenantId)

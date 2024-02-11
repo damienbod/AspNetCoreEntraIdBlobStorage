@@ -10,10 +10,10 @@ public class ClientBlobContainerProvider
 {
     private readonly IConfiguration _configuration;
     private readonly ClientSecretCredentialProvider _clientSecretCredentialProvider;
-    private readonly MicrosoftGraphApplicationClient _microsoftGraphApplicationClient;
+    private readonly AzureMgmtClientService _microsoftGraphApplicationClient;
 
     public ClientBlobContainerProvider(ClientSecretCredentialProvider clientSecretCredentialProvider,
-        MicrosoftGraphApplicationClient microsoftGraphApplicationClient,
+        AzureMgmtClientService microsoftGraphApplicationClient,
         IConfiguration configuration)
     {
         _configuration = configuration;

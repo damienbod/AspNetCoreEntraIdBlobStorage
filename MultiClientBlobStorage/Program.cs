@@ -23,7 +23,7 @@ var env = builder.Environment;
 services.AddSingleton<ClientSecretCredentialProvider>();
 services.AddSingleton<ClientBlobContainerProvider>();
 services.AddSingleton<AzureMgmtClientCredentialService>();
-services.AddSingleton<MicrosoftGraphApplicationClient>();
+services.AddSingleton<AzureMgmtClientService>();
 
 services.AddDbContext<FileContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));

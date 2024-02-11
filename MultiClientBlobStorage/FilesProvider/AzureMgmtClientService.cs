@@ -2,13 +2,13 @@
 
 namespace AzureMgmtClientCrendentials;
 
-public class MicrosoftGraphApplicationClient
+public class AzureMgmtClientService
 {
     private readonly AzureMgmtClientCredentialService _azureMgmtClientCredentialService;
     private readonly IHttpClientFactory _clientFactory;
     private readonly IConfiguration _configuration;
 
-    public MicrosoftGraphApplicationClient(AzureMgmtClientCredentialService azureMgmtClientCredentialService, 
+    public AzureMgmtClientService(AzureMgmtClientCredentialService azureMgmtClientCredentialService, 
         IHttpClientFactory clientFactory,
         IConfiguration configuration)
     {
@@ -26,11 +26,11 @@ public class MicrosoftGraphApplicationClient
     {
         // The role ID: Storage Blob Data Reader
         var roleId = "2a2b9908-6ea1-4ae2-8e65-a410df84e7d1";
-        var subscriptionId = "a2029853-0102-49be-931a-3edf53744c56";
+        var subscriptionId = _configuration["AzureMgmt:SubscriptionId"];
         // the service principal ID
         var servicePrincipalId = groupId;
         // the resource group name
-        var resourceGroupName = "blob-security-rg";
+        var resourceGroupName = _configuration["AzureMgmt:ResourceGroupName"];
 
         var url = $"https://management.azure.com/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/providers/Microsoft.Authorization/roleAssignments/{roleId}?api-version=2022-04-01";
         
