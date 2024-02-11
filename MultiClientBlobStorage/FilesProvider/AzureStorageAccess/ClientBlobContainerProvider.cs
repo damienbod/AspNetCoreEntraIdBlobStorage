@@ -29,8 +29,9 @@ public class ClientBlobContainerProvider
             // 2. Create new Blob container
             var blobContainer = await CreateContainer(clientName);
             // 3. RBAC security group Blob data read
+            var groupBlobOneRead = "efa3647e-f334-4cab-8c0e-87b042fc9d30";
             await _microsoftGraphApplicationClient
-                .StorageBlobDataReaderRoleAssignment("TODO", "TODO");
+                .StorageBlobDataReaderRoleAssignment(groupBlobOneRead, blobContainer.AccountName);
 
             // NOTE blob write is configured on root 
 
