@@ -1,10 +1,4 @@
-﻿using Elfie.Serialization;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.Identity.Client.Extensions.Msal;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Runtime.Intrinsics.X86;
+﻿using System.Net.Http.Headers;
 
 namespace AzureMgmtClientCrendentials;
 
