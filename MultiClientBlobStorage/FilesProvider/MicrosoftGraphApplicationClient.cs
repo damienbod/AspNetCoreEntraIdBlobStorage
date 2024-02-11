@@ -37,7 +37,7 @@ public class MicrosoftGraphApplicationClient
         // the resource group name
         var resourceGroupName = "blob-security-rg";
 
-        var url = $"https://management.azure.com/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/providers/Microsoft.Authorization/roleAssignments/{roleId}?api-version=2022-03-01";
+        var url = $"https://management.azure.com/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/providers/Microsoft.Authorization/roleAssignments/{roleId}?api-version=2022-04-01";
         
         var client = _clientFactory.CreateClient();
         var accessToken = await _azureMgmtClientCredentialService.GetAccessToken();
@@ -45,14 +45,16 @@ public class MicrosoftGraphApplicationClient
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        var roleDefinitionId = $"subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/providers/Microsoft.Authorization/roleDefinitions/{roleId}";
-        var properties = new properties
+        var roleDefinitionId = $"/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/providers/Microsoft.Authorization/roleDefinitions/{roleId}";
+        var properties = new Properties
         {
-            roleDefinitionId = roleDefinitionId,
-            principalId = servicePrincipalId
+            RoleDefinitionId = roleDefinitionId,
+            PrincipalId = servicePrincipalId
         };
 
-        var response = await client.PostAsJsonAsync<properties>(url, properties);
+        var test = System.Text.Json.JsonSerializer.Serialize<Properties>(properties);
+
+        var response = await client.PutAsJsonAsync<Properties>(url, properties);
         if (response.IsSuccessStatusCode)
         {
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -68,10 +70,10 @@ public class MicrosoftGraphApplicationClient
     ///    "principalId": "SP_ID"
     ///}
     /// </summary>
-    public class properties
+    public class Properties
     {
-        public string roleDefinitionId { get; set; } = string.Empty;
-        public string principalId { get; set; } = string.Empty;
+        public string RoleDefinitionId { get; set; } = string.Empty;
+        public string PrincipalId { get; set; } = string.Empty;
         
     }
 }
