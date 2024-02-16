@@ -27,6 +27,7 @@ public class AzureMgmtClientService
     {
         // The role ID: Storage Blob Data Reader
         var roleId = "2a2b9908-6ea1-4ae2-8e65-a410df84e7d1";
+        var roleNameUnique = $"{Guid.NewGuid()}"; // Must be a guid
         var subscriptionId = _configuration["AzureMgmt:SubscriptionId"];
         // the service principal ID
         var servicePrincipalId = groupId;
@@ -34,7 +35,7 @@ public class AzureMgmtClientService
         var resourceGroupName = _configuration["AzureMgmt:ResourceGroupName"];
 
         var objectId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobServices/default/containers/{blobContainerName}";     
-        var url = $"https://management.azure.com{objectId}/providers/Microsoft.Authorization/roleAssignments/{roleId}?api-version=2022-04-01";
+        var url = $"https://management.azure.com{objectId}/providers/Microsoft.Authorization/roleAssignments/{roleNameUnique}?api-version=2022-04-01";
 
         var client = _clientFactory.CreateClient();
         var accessToken = await _azureMgmtClientCredentialService.GetAccessToken();
