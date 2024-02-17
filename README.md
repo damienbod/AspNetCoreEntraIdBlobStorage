@@ -55,6 +55,8 @@ Update-Database
 
 https://learn.microsoft.com/en-us/azure/storage/blobs/authorize-access-azure-active-directory
 
+https://damienbod.com/2023/01/16/implementing-secure-microsoft-graph-application-clients-in-asp-net-core/
+
 https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction
 
 https://github.com/AzureAD/microsoft-identity-web
