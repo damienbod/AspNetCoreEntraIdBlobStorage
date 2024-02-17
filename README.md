@@ -2,15 +2,21 @@
 
 # ASP.NET Core using Azure Blob storage 
 
-Secure upload and secure download. Users are authenticated using Microsoft Entra ID. The blob storage containers use Azure security groups to control the access. The upload and the download access is separated into different groups. 
-
-![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams.png)
-
-Assign RBAC for user/group/sp with role **Storage Blob Data Contributor** or **Storage Blob Data Reader** and your resource.
-
 ## Blogs
 
 [Using Blob storage from ASP.NET Core with Entra ID authentication](https://damienbod.com/2024/02/12/using-blob-storage-from-asp-net-core-with-entra-id-authentication/)
+
+## Delegated read/write
+
+Secure upload and secure download. Users are authenticated using Microsoft Entra ID. The blob storage containers use Azure security groups to control the access. The upload and the download access is separated into different groups. 
+
+![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams-delegated.png)
+
+Assign RBAC for user/group/sp with role **Storage Blob Data Contributor** or **Storage Blob Data Reader** and your resource.
+
+## Application write, delegated read
+
+![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams-app-write.png)
 
 ### Old
 
