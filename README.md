@@ -16,6 +16,10 @@ Assign RBAC for users or groups with role **Storage Blob Data Contributor** or *
 
 ## Application write, delegated read
 
+Secure upload and secure download. Users are authenticated using Microsoft Entra ID. The blob storage containers use Azure security groups to control the read access. The upload access uses the an application for the Contributor role. 
+
+Only the application can upload files and the users or the groups can only read the files.
+
 ![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams-app-write.png)
 
 Assign RBAC for users or groups with role **Storage Blob Data Contributor** and assign the application **Storage Blob Data Reader** and your resource.
