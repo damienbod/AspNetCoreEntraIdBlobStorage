@@ -12,11 +12,13 @@ Secure upload and secure download. Users are authenticated using Microsoft Entra
 
 ![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams-delegated.png)
 
-Assign RBAC for user/group/sp with role **Storage Blob Data Contributor** or **Storage Blob Data Reader** and your resource.
+Assign RBAC for users or groups with role **Storage Blob Data Contributor** or **Storage Blob Data Reader** and your resource.
 
 ## Application write, delegated read
 
 ![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams-app-write.png)
+
+Assign RBAC for users or groups with role **Storage Blob Data Contributor** and assign the application **Storage Blob Data Reader** and your resource.
 
 ### Old
 
