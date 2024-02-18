@@ -1,9 +1,8 @@
 ﻿using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using AzureMgmtClientCrendentials;
+using MultiClientBlobStorage.Providers.Rbac;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace MultiClientBlobStorage.Providers;
 

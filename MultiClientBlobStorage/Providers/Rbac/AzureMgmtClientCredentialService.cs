@@ -1,6 +1,6 @@
 ﻿using Microsoft.Identity.Client;
 
-namespace AzureMgmtClientCrendentials;
+namespace MultiClientBlobStorage.Providers.Rbac;
 
 public class AzureMgmtClientCredentialService
 {

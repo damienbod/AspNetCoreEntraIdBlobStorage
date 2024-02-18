@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MultiClientBlobStorage.Providers;
+using MultiClientBlobStorage.Providers.GroupUserServices;
 
 namespace MultiClientBlobStorage.Pages;
 
@@ -9,13 +10,16 @@ namespace MultiClientBlobStorage.Pages;
 public class CreateClientModel : PageModel
 {
     private readonly ClientBlobContainerProvider _clientBlobContainerProvider;
+    private readonly ApplicationMsGraphService _applicationMsGraphService;
 
     [BindProperty]
     public string ClientName { get; set; } = string.Empty;
 
-    public CreateClientModel(ClientBlobContainerProvider clientBlobContainerProvider)
+    public CreateClientModel(ClientBlobContainerProvider clientBlobContainerProvider,
+        ApplicationMsGraphService applicationMsGraphService)
     {
         _clientBlobContainerProvider = clientBlobContainerProvider;
+        _applicationMsGraphService = applicationMsGraphService;
     }
 
     public void OnGet()
@@ -26,16 +30,15 @@ public class CreateClientModel : PageModel
     {
         if (ModelState.IsValid)
         {
+            var group = await _applicationMsGraphService.CreateSecurityGroupAsync(ClientName);
+
             var blobContainer = await _clientBlobContainerProvider
                 .CreateBlobContainerClient(ClientName);
 
-            if(blobContainer != null)
+            if(blobContainer != null && group != null && group.Id != null)
             {
-                // 1. Create new security group for client users
-                var groupBlobOneRead = "efa3647e-f334-4cab-8c0e-87b042fc9d30";
-
-                await _clientBlobContainerProvider.ApplyReaderGroupToBlobContainer(blobContainer, 
-                    groupBlobOneRead);
+                await _clientBlobContainerProvider
+                    .ApplyReaderGroupToBlobContainer(blobContainer, group.Id);
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Text.Json.Serialization;
 
-namespace AzureMgmtClientCrendentials;
+namespace MultiClientBlobStorage.Providers.Rbac;
 
 public class AzureMgmtClientService
 {
@@ -38,7 +38,7 @@ public class AzureMgmtClientService
         // the resource group name
         var resourceGroupName = _configuration["AzureMgmt:ResourceGroupName"];
 
-        var objectId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobServices/default/containers/{blobContainerName}";     
+        var objectId = $"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/blobServices/default/containers/{blobContainerName}";
         var url = $"https://management.azure.com{objectId}/providers/Microsoft.Authorization/roleAssignments/{roleNameUnique}?api-version=2022-04-01";
 
         var client = _clientFactory.CreateClient();
@@ -64,7 +64,7 @@ public class AzureMgmtClientService
         //var response = await client.GetAsync(getRe);
         //var test = await response.Content.ReadAsStringAsync();
 
-        var response = await client.PutAsJsonAsync<PayloadRoleAssignment>(url, PayloadRoleAssignment);
+        var response = await client.PutAsJsonAsync(url, PayloadRoleAssignment);
         if (response.IsSuccessStatusCode)
         {
             var responseContent = await response.Content.ReadAsStringAsync();

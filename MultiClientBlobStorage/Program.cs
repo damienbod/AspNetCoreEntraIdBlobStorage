@@ -1,4 +1,4 @@
-using AzureMgmtClientCrendentials;
+using MultiClientBlobStorage;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Identity.Web;
@@ -6,6 +6,8 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Logging;
 using MultiClientBlobStorage.Providers;
+using MultiClientBlobStorage.Providers.Rbac;
+using MultiClientBlobStorage.Providers.GroupUserServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,9 +21,11 @@ var configuration = builder.Configuration;
 var env = builder.Environment;
 
 services.AddSingleton<ClientSecretCredentialProvider>();
-services.AddSingleton<ClientBlobContainerProvider>();
+services.AddScoped<ClientBlobContainerProvider>();
 services.AddSingleton<AzureMgmtClientCredentialService>();
-services.AddSingleton<AzureMgmtClientService>();
+services.AddScoped<AzureMgmtClientService>();
+services.AddSingleton<GraphApplicationClientService>();
+services.AddScoped<ApplicationMsGraphService>();
 
 services.AddHttpClient();
 services.AddOptions();
