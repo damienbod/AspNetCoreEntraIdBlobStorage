@@ -12,11 +12,11 @@ public class ApplicationMsGraphService
         _graphApplicationClientService = graphApplicationClientService;
     }
 
-    public async Task<Group?> CreateSecurityGroupAsync(string groupName)
+    public async Task<Group?> CreateSecurityGroupAsync(string group)
     {
         var graphServiceClient = _graphApplicationClientService.GetGraphClientWithClientSecretCredential();
 
-        var formatted = RemoveSpecialCharacters(groupName);
+        var formatted = RemoveSpecialCharacters(group);
         var groupName = $"blob-{formatted.Trim()}-{Guid.NewGuid()}".ToLower();
 
         var requestBody = new Group
