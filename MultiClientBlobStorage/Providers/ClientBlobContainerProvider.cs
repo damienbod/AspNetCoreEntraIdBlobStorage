@@ -10,15 +10,15 @@ public class ClientBlobContainerProvider
 {
     private readonly IConfiguration _configuration;
     private readonly ClientSecretCredentialProvider _clientSecretCredentialProvider;
-    private readonly AzureMgmtClientService _microsoftGraphApplicationClient;
+    private readonly AzureMgmtClientService _azureMgmtClientService;
 
     public ClientBlobContainerProvider(ClientSecretCredentialProvider clientSecretCredentialProvider,
-        AzureMgmtClientService microsoftGraphApplicationClient,
+        AzureMgmtClientService azureMgmtClientService,
         IConfiguration configuration)
     {
         _configuration = configuration;
         _clientSecretCredentialProvider = clientSecretCredentialProvider;
-        _microsoftGraphApplicationClient = microsoftGraphApplicationClient;
+        _azureMgmtClientService = azureMgmtClientService;
     }
 
     public async Task<BlobContainerClient?> CreateBlobContainerClient(string clientName)
@@ -41,7 +41,7 @@ public class ClientBlobContainerProvider
         try
         {
             // RBAC security group Blob data read
-            await _microsoftGraphApplicationClient
+            await _azureMgmtClientService
                 .StorageBlobDataReaderRoleAssignment(groupId,
                     blobContainer.AccountName, 
                     blobContainer.Name);
