@@ -75,8 +75,6 @@ https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
 
 https://blogs.aaddevsup.xyz/2020/05/using-azure-management-libraries-for-net-to-manage-azure-ad-users-groups-and-rbac-role-assignments/
 
-https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/roleAssignments?api-version=2015-07-01
-
 https://docs.microsoft.com/en-us/rest/api/apimanagement/apimanagementrest/azure-api-management-rest-api-authentication
 
 https://docs.microsoft.com/en-us/rest/api/authorization/role-assignment-rest-sample
