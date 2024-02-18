@@ -14,7 +14,8 @@ public class ApplicationMsGraphService
 
     public async Task<Group?> CreateSecurityGroupAsync(string group)
     {
-        var graphServiceClient = _graphApplicationClientService.GetGraphClientWithClientSecretCredential();
+        var graphServiceClient = _graphApplicationClientService
+            .GetGraphClientWithClientSecretCredential();
 
         var formatted = RemoveSpecialCharacters(group);
         var groupName = $"blob-{formatted.Trim()}-{Guid.NewGuid()}".ToLower();
