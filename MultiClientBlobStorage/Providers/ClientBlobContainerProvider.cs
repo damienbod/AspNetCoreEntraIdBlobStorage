@@ -3,6 +3,7 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using AzureMgmtClientCrendentials;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MultiClientBlobStorage.Providers;
 
@@ -21,23 +22,32 @@ public class ClientBlobContainerProvider
         _microsoftGraphApplicationClient = microsoftGraphApplicationClient;
     }
 
-    public async Task<string> CreateClient(string clientName)
+    public async Task<BlobContainerClient?> CreateBlobContainerClient(string clientName)
     {
         try
         {
-            // 1. Create new security group for client users
-            var groupBlobOneRead = "efa3647e-f334-4cab-8c0e-87b042fc9d30";
-
-            // 2. Create new Blob container
+            // Create new Blob container
             var blobContainer = await CreateContainer(clientName);
 
-            // 3. RBAC security group Blob data read
-            await _microsoftGraphApplicationClient.StorageBlobDataReaderRoleAssignment(groupBlobOneRead,
-                blobContainer.AccountName, blobContainer.Name);
+            return blobContainer;
+        }
+        catch (Exception e)
+        {
+            throw new ApplicationException($"Exception {e}");
+        }
+    }
+
+    public async Task ApplyReaderGroupToBlobContainer(BlobContainerClient blobContainer, string groupId)
+    {
+        try
+        {
+            // RBAC security group Blob data read
+            await _microsoftGraphApplicationClient
+                .StorageBlobDataReaderRoleAssignment(groupId,
+                    blobContainer.AccountName, 
+                    blobContainer.Name);
 
             // NOTE service principal blob write is configured on root 
-
-            return blobContainer.Name;
         }
         catch (Exception e)
         {

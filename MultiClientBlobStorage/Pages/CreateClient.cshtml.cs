@@ -26,7 +26,17 @@ public class CreateClientModel : PageModel
     {
         if (ModelState.IsValid)
         {
-            await _clientBlobContainerProvider.CreateClient(ClientName);
+            var blobContainer = await _clientBlobContainerProvider
+                .CreateBlobContainerClient(ClientName);
+
+            if(blobContainer != null)
+            {
+                // 1. Create new security group for client users
+                var groupBlobOneRead = "efa3647e-f334-4cab-8c0e-87b042fc9d30";
+
+                await _clientBlobContainerProvider.ApplyReaderGroupToBlobContainer(blobContainer, 
+                    groupBlobOneRead);
+            }
         }
 
         return Page();
