@@ -2,6 +2,7 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using MultiClientBlobStorage.Providers.Rbac;
+using Polly;
 using System.Text;
 
 namespace MultiClientBlobStorage.Providers;
@@ -38,20 +39,23 @@ public class ClientBlobContainerProvider
 
     public async Task ApplyReaderGroupToBlobContainer(BlobContainerClient blobContainer, string groupId)
     {
-        try
+        var maxRetryAttempts = 20;
+        var pauseBetweenFailures = TimeSpan.FromSeconds(3);
+
+        var retryPolicy = Policy
+            .Handle<Exception>()
+            .WaitAndRetryAsync(maxRetryAttempts, i => pauseBetweenFailures);
+
+        await retryPolicy.ExecuteAsync(async () =>
         {
             // RBAC security group Blob data read
             await _azureMgmtClientService
                 .StorageBlobDataReaderRoleAssignment(groupId,
-                    blobContainer.AccountName, 
+                    blobContainer.AccountName,
                     blobContainer.Name);
 
             // NOTE service principal blob write is configured on root 
-        }
-        catch (Exception e)
-        {
-            throw new ApplicationException($"Exception {e}");
-        }
+        });
     }
 
     private async Task<BlobContainerClient> CreateContainer(string name)
