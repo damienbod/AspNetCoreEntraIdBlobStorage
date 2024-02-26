@@ -8,7 +8,7 @@ public class BlobApplicationUploadProvider
     private readonly IConfiguration _configuration;
     private readonly ClientSecretCredentialProvider _clientSecretCredentialProvider;
 
-    public BlobApplicationUploadProvider(ClientSecretCredentialProvider clientSecretCredentialProvider, 
+    public BlobApplicationUploadProvider(ClientSecretCredentialProvider clientSecretCredentialProvider,
         IConfiguration configuration)
     {
         _configuration = configuration;

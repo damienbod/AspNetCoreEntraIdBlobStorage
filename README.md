@@ -2,15 +2,27 @@
 
 # ASP.NET Core using Azure Blob storage 
 
-Secure upload and secure download. Users are authenticated using Microsoft Entra ID. The blob storage containers use Azure security groups to control the access. The upload and the download access is separated into different groups. 
-
-![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams.png)
-
-Assign RBAC for user/group/sp with role **Storage Blob Data Contributor** or **Storage Blob Data Reader** and your resource.
-
 ## Blogs
 
 [Using Blob storage from ASP.NET Core with Entra ID authentication](https://damienbod.com/2024/02/12/using-blob-storage-from-asp-net-core-with-entra-id-authentication/)
+
+## Delegated read/write
+
+Secure upload and secure download. Users are authenticated using Microsoft Entra ID. The blob storage containers use Azure security groups to control the access. The upload and the download access is separated into different groups. 
+
+![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams-delegated.png)
+
+Assign RBAC for users or groups with role **Storage Blob Data Contributor** or **Storage Blob Data Reader** and your resource.
+
+## Application write, delegated read
+
+Secure upload and secure download. Users are authenticated using Microsoft Entra ID. The blob storage containers use Azure security groups to control the read access. The upload access uses the an application for the Contributor role. 
+
+Only the application can upload files and the users or the groups can only read the files.
+
+![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams-app-write.png)
+
+Assign RBAC for users or groups with role **Storage Blob Data Contributor** and assign the application **Storage Blob Data Reader** and your resource.
 
 ### Old
 
@@ -43,6 +55,8 @@ Update-Database
 
 https://learn.microsoft.com/en-us/azure/storage/blobs/authorize-access-azure-active-directory
 
+https://damienbod.com/2023/01/16/implementing-secure-microsoft-graph-application-clients-in-asp-net-core/
+
 https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction
 
 https://github.com/AzureAD/microsoft-identity-web
@@ -60,8 +74,6 @@ https://github.com/425show/b2c-appRoles
 https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
 
 https://blogs.aaddevsup.xyz/2020/05/using-azure-management-libraries-for-net-to-manage-azure-ad-users-groups-and-rbac-role-assignments/
-
-https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Authorization/roleAssignments?api-version=2015-07-01
 
 https://docs.microsoft.com/en-us/rest/api/apimanagement/apimanagementrest/azure-api-management-rest-api-authentication
 

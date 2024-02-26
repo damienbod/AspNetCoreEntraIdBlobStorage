@@ -9,7 +9,7 @@ public class FileDescriptionProvider
 
     public FileDescriptionProvider(FileContext context, IConfiguration configuration)
     {
-        _context = context;;
+        _context = context;
         _configuration = configuration;
     }
 
