@@ -42,6 +42,7 @@ Assign RBAC for users or groups with role **Storage Blob Data Contributor** and 
 
 ## History
 
+- 2024-03-03 Updated packages
 - 2024-02-09 Improved security, using Entra ID with delegated App Roles and groups
 - 2024-02-07 .NET 8
 - 2023-11-03 Updated packages
