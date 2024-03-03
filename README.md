@@ -26,6 +26,14 @@ Only the application can upload files and the users or the groups can only read 
 
 Assign RBAC for users or groups with role **Storage Blob Data Contributor** and assign the application **Storage Blob Data Reader** and your resource.
 
+## Multi client blob storage access using ASP.NET Core with Entra ID authentication and RBAC
+
+Onboard different clients or organizations in an ASP.NET Core application to use separated Azure blob containers with controlled access using security groups and RBAC applied roles
+
+![security-context](https://github.com/damienbod/AspNetCoreEntraIdBlobStorage/blob/main/Images/diagrams-app-write-multi-tenant.png)
+
+Assign RBAC for users or groups with role **Storage Blob Data Contributor** and assign the application **Storage Blob Data Reader** and your resource.
+
 ### Old
 
 - [Secure ME-ID User File Upload with ME-ID Storage and ASP.NET Core](https://damienbod.com/2021/02/08/secure-azure-ad-user-account-file-upload-with-azure-ad-storage-and-asp-net-core)
