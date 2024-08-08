@@ -44,6 +44,7 @@ Assign RBAC for users or groups with role **Storage Blob Data Contributor** and 
 
 ## History
 
+- 2024-08-08 Updated packages
 - 2024-06-22 Updated packages
 - 2024-05-08 Updated packages
 - 2024-03-24 Updated packages
