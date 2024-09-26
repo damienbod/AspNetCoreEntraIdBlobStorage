@@ -1,5 +1,5 @@
-using System.Text;
 using Microsoft.Graph.Models;
+using System.Text;
 
 namespace MultiClientBlobStorage.Providers.GroupUserServices;
 

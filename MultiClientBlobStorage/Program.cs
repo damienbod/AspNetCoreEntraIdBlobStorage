@@ -1,4 +1,3 @@
-using MultiClientBlobStorage;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Identity.Web;
@@ -6,8 +5,8 @@ using Microsoft.Identity.Web.UI;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Logging;
 using MultiClientBlobStorage.Providers;
-using MultiClientBlobStorage.Providers.Rbac;
 using MultiClientBlobStorage.Providers.GroupUserServices;
+using MultiClientBlobStorage.Providers.Rbac;
 
 var builder = WebApplication.CreateBuilder(args);
 

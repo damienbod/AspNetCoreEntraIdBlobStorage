@@ -35,7 +35,7 @@ public class CreateClientModel : PageModel
             var blobContainer = await _clientBlobContainerProvider
                 .CreateBlobContainerClient(ClientName);
 
-            if(blobContainer != null && group != null && group.Id != null)
+            if (blobContainer != null && group != null && group.Id != null)
             {
                 await _clientBlobContainerProvider
                     .ApplyReaderGroupToBlobContainer(blobContainer, group.Id);

@@ -1,7 +1,7 @@
-using System.Security.Cryptography.X509Certificates;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.Graph;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MultiClientBlobStorage.Providers.GroupUserServices;
 
