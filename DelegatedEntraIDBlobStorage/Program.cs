@@ -17,7 +17,6 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 
 var services = builder.Services;
 var configuration = builder.Configuration;
-var env = builder.Environment;
 
 services.AddScoped<BlobDelegatedUploadProvider>();
 services.AddScoped<BlobDelegatedDownloadProvider>();
@@ -62,7 +61,7 @@ var app = builder.Build();
 IdentityModelEventSource.ShowPII = true;
 JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-if (env.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
