@@ -38,7 +38,6 @@ builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration,
     .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
     .AddDistributedTokenCaches();
 
-
 services.AddAuthorization(options =>
 {
     options.AddPolicy("blob-one-read-policy", policyBlobOneRead =>
