@@ -33,6 +33,8 @@ services.AddOptions();
 
 string[]? initialScopes = configuration.GetValue<string>("AzureStorage:ScopeForAccessToken")?.Split(' ');
 
+builder.Services.AddDistributedMemoryCache();
+
 services.AddMicrosoftIdentityWebAppAuthentication(configuration)
     .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
     .AddInMemoryTokenCaches();

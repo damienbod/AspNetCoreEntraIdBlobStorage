@@ -4,11 +4,9 @@
 
 ## Blogs
 
-[Using Blob storage from ASP.NET Core with Entra ID authentication](https://damienbod.com/2024/02/12/using-blob-storage-from-asp-net-core-with-entra-id-authentication/)
-
-[Delegated read and application write access to blob storage using ASP.NET Core with Entra ID authentication](https://damienbod.com/2024/02/26/delegated-read-and-application-write-access-to-blob-storage-using-asp-net-core-with-entra-id-authentication/)
-
-[Multi client blob storage access using ASP.NET Core with Entra ID authentication and RBAC](https://damienbod.com/2024/03/04/multi-client-blob-storage-access-using-asp-net-core-with-entra-id-authentication-and-rbac/)
+- [Using Blob storage from ASP.NET Core with Entra ID authentication](https://damienbod.com/2024/02/12/using-blob-storage-from-asp-net-core-with-entra-id-authentication/)
+- [Delegated read and application write access to blob storage using ASP.NET Core with Entra ID authentication](https://damienbod.com/2024/02/26/delegated-read-and-application-write-access-to-blob-storage-using-asp-net-core-with-entra-id-authentication/)
+- [Multi client blob storage access using ASP.NET Core with Entra ID authentication and RBAC](https://damienbod.com/2024/03/04/multi-client-blob-storage-access-using-asp-net-core-with-entra-id-authentication-and-rbac/)
 
 ## Delegated read/write
 
@@ -44,6 +42,7 @@ Assign RBAC for users or groups with role **Storage Blob Data Contributor** and 
 
 ## History
 
+- 2025-02-07 Updated packages, .NET 9
 - 2024-09-26 Updated packages
 - 2024-08-08 Updated packages
 - 2024-06-22 Updated packages

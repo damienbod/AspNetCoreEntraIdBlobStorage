@@ -20,7 +20,6 @@ var configuration = builder.Configuration;
 
 services.AddScoped<BlobDelegatedUploadProvider>();
 services.AddScoped<BlobDelegatedDownloadProvider>();
-
 services.AddTransient<DelegatedTokenAcquisitionTokenCredential>();
 
 services.AddDbContext<FileContext>(options =>
@@ -32,9 +31,12 @@ services.AddOptions();
 
 string[]? initialScopes = configuration.GetValue<string>("AzureStorage:ScopeForAccessToken")?.Split(' ');
 
-services.AddMicrosoftIdentityWebAppAuthentication(configuration)
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration, "EntraID",
+        subscribeToOpenIdConnectMiddlewareDiagnosticsEvents: true)
     .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
-    .AddInMemoryTokenCaches();
+    .AddDistributedTokenCaches();
 
 services.AddAuthorization(options =>
 {
