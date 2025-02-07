@@ -39,17 +39,15 @@ services.AddMicrosoftIdentityWebAppAuthentication(configuration)
     .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
     .AddInMemoryTokenCaches();
 
-services.AddAuthorization(options =>
-{
-    options.AddPolicy("blob-two-read-policy", policyBlobOneRead =>
+services.AddAuthorizationBuilder()
+    .AddPolicy("blob-two-read-policy", policyBlobOneRead =>
     {
         policyBlobOneRead.RequireClaim("roles", ["blobtworeadrole", "blobtwowriterole"]);
-    });
-    options.AddPolicy("blob-two-write-policy", policyBlobOneRead =>
+    })
+    .AddPolicy("blob-two-write-policy", policyBlobOneRead =>
     {
         policyBlobOneRead.RequireClaim("roles", ["blobtwowriterole"]);
     });
-});
 
 services.AddRazorPages().AddMvcOptions(options =>
 {
