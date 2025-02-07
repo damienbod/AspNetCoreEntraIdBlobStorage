@@ -20,7 +20,6 @@ var configuration = builder.Configuration;
 
 services.AddScoped<BlobDelegatedUploadProvider>();
 services.AddScoped<BlobDelegatedDownloadProvider>();
-
 services.AddTransient<DelegatedTokenAcquisitionTokenCredential>();
 
 services.AddDbContext<FileContext>(options =>
@@ -50,10 +49,10 @@ services.AddAuthorization(options =>
 
 services.AddRazorPages().AddMvcOptions(options =>
 {
-    var policy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-    options.Filters.Add(new AuthorizeFilter(policy));
+    //var policy = new AuthorizationPolicyBuilder()
+    //    .RequireAuthenticatedUser()
+    //    .Build();
+    //options.Filters.Add(new AuthorizeFilter(policy));
 }).AddMicrosoftIdentityUI();
 
 var app = builder.Build();
