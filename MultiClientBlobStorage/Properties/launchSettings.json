@@ -1,6 +1,6 @@
 ﻿{
   "profiles": {
-    "HTTPS": {
+    "MultiClientBlobStorage": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
