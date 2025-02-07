@@ -28,6 +28,8 @@ services.AddScoped<ApplicationMsGraphService>();
 services.AddHttpClient();
 services.AddOptions();
 
+builder.Services.AddDistributedMemoryCache();
+
 services.AddMicrosoftIdentityWebAppAuthentication(configuration)
     .EnableTokenAcquisitionToCallDownstreamApi()
     .AddInMemoryTokenCaches();

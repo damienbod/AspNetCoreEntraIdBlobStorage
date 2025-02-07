@@ -31,9 +31,13 @@ services.AddOptions();
 
 string[]? initialScopes = configuration.GetValue<string>("AzureStorage:ScopeForAccessToken")?.Split(' ');
 
-services.AddMicrosoftIdentityWebAppAuthentication(configuration)
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration, "EntraID",
+        subscribeToOpenIdConnectMiddlewareDiagnosticsEvents: true)
     .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
-    .AddInMemoryTokenCaches();
+    .AddDistributedTokenCaches();
+
 
 services.AddAuthorization(options =>
 {
@@ -49,10 +53,10 @@ services.AddAuthorization(options =>
 
 services.AddRazorPages().AddMvcOptions(options =>
 {
-    //var policy = new AuthorizationPolicyBuilder()
-    //    .RequireAuthenticatedUser()
-    //    .Build();
-    //options.Filters.Add(new AuthorizeFilter(policy));
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+    options.Filters.Add(new AuthorizeFilter(policy));
 }).AddMicrosoftIdentityUI();
 
 var app = builder.Build();
